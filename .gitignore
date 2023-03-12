@@ -28,4 +28,4 @@ coverage
 *.sw?
 
 #config
-config.json
+# config.json
