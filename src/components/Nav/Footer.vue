@@ -9,7 +9,7 @@
             alt="Vinodrill Logo"
           />
           <span
-            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+            class="self-center text-2xl font-semibold whitespace-nowrap text-white"
             >VinoDrill</span
           >
         </a>
@@ -17,11 +17,11 @@
       <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
         <div>
           <h2
-            class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"
+            class="mb-6 text-sm font-semibold  uppercase text-white"
           >
             liens utiles
           </h2>
-          <ul class="text-gray-600 dark:text-gray-400">
+          <ul class="text-gray-400">
             <li class="mb-4">
               <RouterLink to="/mon-compte">Mon compte</RouterLink>
             </li>
@@ -38,11 +38,11 @@
         </div>
         <div>
           <h2
-            class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"
+            class="mb-6 text-sm font-semibold uppercase text-white"
           >
             Follow us
           </h2>
-          <ul class="text-gray-600 dark:text-gray-400">
+          <ul class="text-gray-400">
             <li class="mb-4">
               <a
                 href="https://github.com/cherifad/VinoDrill-Front"
@@ -63,11 +63,11 @@
         </div>
         <div>
           <h2
-            class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"
+            class="mb-6 text-sm font-semibold uppercase text-white"
           >
             Légal
           </h2>
-          <ul class="text-gray-600 dark:text-gray-400">
+          <ul class="text-gray-400">
             <li class="mb-4">
               <RouterLink to="/mentions-legales">Mentions légales</RouterLink>
             </li>
@@ -85,9 +85,9 @@
         </div>
       </div>
     </div>
-    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <hr class="my-6 sm:mx-auto border-gray-700 lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
-      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
+      <span class="text-sm sm:text-center text-gray-400"
         >2023
         <a href="http://www.iutannecy-deptinfo.fr:5006/" class="hover:underline">Vinodrill</a>.
         Aucun droit réservé.
@@ -96,7 +96,7 @@
         <a
           href="https://www.facebook.com/vinotrip"
           target="_blank"
-          class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          class="text-gray-500 hover: hover:text-white"
         >
           <svg
             class="w-5 h-5"
@@ -115,7 +115,7 @@
         <a
           href="https://www.instagram.com/vinotrip/"
           target="_blank"
-          class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          class="text-gray-500 hover: hover:text-white"
         >
           <svg
             class="w-5 h-5"
@@ -134,7 +134,7 @@
         <a
           href="https://twitter.com/vinotrip"
           target="_blank"
-          class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          class="text-gray-500 hover: hover:text-white"
         >
           <svg
             class="w-5 h-5"
@@ -150,7 +150,7 @@
         </a>
         <a
           href="#"
-          class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          class="text-gray-500 hover: hover:text-white"
         >
           <svg
             class="w-5 h-5"
@@ -168,7 +168,7 @@
         </a>
         <a
           href="#"
-          class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          class="text-gray-500 hover: hover:text-white"
         >
           <svg
             class="w-5 h-5"
