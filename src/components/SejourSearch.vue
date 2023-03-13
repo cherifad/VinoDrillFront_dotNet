@@ -8,12 +8,12 @@
     <!-- search results -->
     <h1 v-if="toDisplayData" class="mb-2">Séjour<span v-if="toDisplayData.length > 1">s</span> :</h1>
     <div v-if="toDisplayData && toDisplayData.length > 0" class="mt-2 flex flex-col gap-2" v-auto-animate>
-        <router-link v-for="result in toDisplayData" :key="result.idsejour" class="grid grid-cols-3 gap-2 hover:-translate-y-1"
-            :to="{ name: 'SingleSejour', params: { id: result.idsejour, slug: slugify(result.titresejour) } }">
-            <img class="rounded-lg" :src="result.photosejour" :alt="result.titresejour + ' image'">
+        <router-link v-for="result in toDisplayData" :key="result.idSejour" class="grid grid-cols-3 gap-2 hover:-translate-y-1"
+            :to="{ name: 'SingleSejour', params: { id: result.idSejour, slug: slugify(result.titreSejour) } }">
+            <img class="rounded-lg" :src="result.photoSejour" :alt="result.titreSejour + ' image'">
             <div class="flex-1 col-span-2">
-                <h3 class="text-base italic">{{ result.titresejour }}</h3>
-                <p class="text-sm font-bold">{{ result.prixsejour }}€/pers</p>
+                <h3 class="text-base italic">{{ result.titreSejour }}</h3>
+                <p class="text-sm font-bold">{{ result.prixSejour }}€/pers</p>
             </div>
         </router-link>
     </div>
@@ -74,7 +74,7 @@ onMounted(() => {
 function filterData() {
     if (search.value && search.value.length > 0) {
         toDisplayData.value = props.data.filter((item) => {
-            return item.titresejour.toLowerCase().includes(search.value.toLowerCase());
+            return item.titreSejour.toLowerCase().includes(search.value.toLowerCase());
         });
         toDisplayDestination.value = destinations.value.filter((item) => {
             return item.libelledestination.toLowerCase().includes(search.value.toLowerCase());

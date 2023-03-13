@@ -4,7 +4,7 @@ import { useStorage } from '@vueuse/core';
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
-        authUser: useStorage('user', null),
+        authUser: null,
         authErrors: [],
     }),
     getters: {
@@ -28,24 +28,23 @@ export const useAuthStore = defineStore("auth", {
                     };                                                                                                             
                 });
         },
-        async login(email, password) {
+        async login(username, password) {
             this.authError = [];
-            await this.getToken();
+            // await this.getToken();
             try {
-                const response = await axios.post("/login", {
-                    email,
-                    password,
+                const response = await axios.post("/Authenticate/login", {
+                    "username": username,
+                    "password": password,
                 });
-                this.authUser = response.data;
+                console.log(response.data);
+                this.authUser = response.data.token;
                 this.router.push("/mon-compte");
             } catch (error) {
-                if (error.response.status === 422) {
-                    this.authErrors = error.response.data.errors;
-                }
+                this.authErrors.push("Identifiants incorrects");
             }
         },
         async logout() {
-            await axios.post("/logout");
+            // await axios.post("/logout");
             this.router.push("/");
             this.authUser = null;
         },
