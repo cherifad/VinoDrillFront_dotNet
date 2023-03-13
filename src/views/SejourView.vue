@@ -16,21 +16,21 @@
                     trouvé<span v-if="sejourcount > 0">s</span></span>
                 <div class="" v-auto-animate>
                     <div class="pt-12 grid gap-10 md:grid-cols-2 grid-cols-1 justify-center" v-if="!filteredData">
-                        <router-link v-for="sejour in sejours" :key="sejour.idsejour" :id="sejour.idsejour"
-                            :to="{ name: 'SingleSejour', params: { id: sejour.idsejour, slug: slugify(sejour.titresejour) } }">
-                            <SingleCardSejour :key="sejour.idsejour" :title="sejour.titresejour"
-                                :description="sejour.descriptionsejour" :nights="sejour.nbnuit" :days="sejour.nbjour"
-                                :image="sejour.photosejour" :price="sejour.prixsejour" :id="sejour.idsejour"
-                                :libelleTemps="sejour.libelletemps" :notemoyenne="sejour.notemoyenne" />
+                        <router-link v-for="filter in sejours" :key="filter.idSejour" :id="filter.idSejour"
+                            :to="{ name: 'SingleSejour', params: { id: filter.idSejour, slug: slugify(filter.titreSejour) } }">
+                            <SingleCardSejour :key="filter.idSejour" :title="filter.titreSejour"
+                                :description="filter.descriptionSejour" :nights="filter.nbNuit" :days="filter.nbJour"
+                                :image="filter.photoSejour" :price="filter.prixSejour" :id="filter.idSejour"
+                                :libelleTemps="filter.libelleTemps" :notemoyenne="filter.noteMoyenne" />
                         </router-link>
                     </div>
                     <div v-auto-animate class="pt-12 grid gap-10 grid-cols-2 justify-center" v-else-if="sejourcount > 0">
-                        <router-link v-for="filter in filteredData" :key="filter.idsejour" :id="filter.idsejour"
-                            :to="{ name: 'SingleSejour', params: { id: filter.idsejour, slug: slugify(filter.titresejour) } }">
-                            <SingleCardSejour :key="filter.idsejour" :title="filter.titresejour"
-                                :description="filter.descriptionsejour" :nights="filter.nbnuit" :days="filter.nbjour"
-                                :image="filter.photosejour" :price="filter.prixsejour" :id="filter.idsejour"
-                                :libelleTemps="filter.libelletemps" :notemoyenne="filter.notemoyenne" />
+                        <router-link v-for="filter in filteredData" :key="filter.idSejour" :id="filter.idSejour"
+                            :to="{ name: 'SingleSejour', params: { id: filter.idSejour, slug: slugify(filter.titreSejour) } }">
+                            <SingleCardSejour :key="filter.idSejour" :title="filter.titreSejour"
+                                :description="filter.descriptionSejour" :nights="filter.nbNuit" :days="filter.nbJour"
+                                :image="filter.photoSejour" :price="filter.prixSejour" :id="filter.idSejour"
+                                :libelleTemps="filter.libelleTemps" :notemoyenne="filter.noteMoyenne" />
                         </router-link>
                     </div>
                      <div v-auto-animate class="pt-12 grid gap-10 grid-cols-2 justify-center" v-else>
@@ -79,10 +79,11 @@ function slugify(string) {
 
 
 onMounted(async () => {
-    axios.get('/api/sejour')
+    axios.get('/api/Sejour')
         .then((response) => {
-            sejours.value = response.data['data'].reverse();
-            sejourcount.value = response.data['data'].length;
+            sejours.value = response.data.reverse();
+            sejourcount.value = response.data.length;
+            
         })
         .catch((error) => {
             console.log(error);

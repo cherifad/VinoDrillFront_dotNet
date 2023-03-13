@@ -1,5 +1,5 @@
 {
-    "backend_url": "http://www.iutannecy-deptinfo.fr:5005",
+    "backend_url": "https://localhost:7169",
     "majEnfant": 12,
     "majAdulte": 20,
     "majChambre": 15,
