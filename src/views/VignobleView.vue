@@ -9,8 +9,8 @@
       </div>
       <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-11">
             <SingleCardVignoble v-for="destination in destinations"
-                  :title="destination.libelledestination"
-                  :description="destination.descriptiondestination"
+                  :title="destination.libelleDestination"
+                  :description="destination.descriptionDestination"
                   image="vignoble.photosejour"
                   :id="destination.idDestination"
                />             
@@ -30,11 +30,11 @@ const idDestination: any = ref(null);
 
 //REQUETE AXIOS POUR RECUPERER LES DONNEES DE LA BDD
 onMounted(async () => {
-    axios.get('/api/destination')
+    axios.get('/api/Destination')
     .then((response) => {
-        destinations.value = response.data['data'];
-        console.log(destinations.value[0].libelledestination);
-        libelleDestination.value = destinations.value.map((item: any) => item.libelledestination);
+        destinations.value = response.data;
+        console.log(destinations.value[0].libelleDestination);
+        libelleDestination.value = destinations.value.map((item: any) => item.libelleDestination);
     })
     .catch((error) => {
         console.log(error);

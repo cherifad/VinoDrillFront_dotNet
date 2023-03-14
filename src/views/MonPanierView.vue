@@ -11,12 +11,12 @@
           <div v-for="item in mesSejours" v-auto-animate :key="item.sejour.idsejour" class="">
             <div class="w-full">
               <PanierItem
-                :id="item.sejour.idsejour"
-                :title="item.sejour.titresejour"
-                :image="item.sejour.photosejour"
-                :nights="item.sejour.nbnuit"
-                :days="item.sejour.nbjour"
-                :price="item.sejour.prixsejour"
+                :id="item.sejour.idSejour"
+                :title="item.sejour.titreSejour"
+                :image="item.sejour.photoSejour"
+                :nights="item.sejour.nbNuit"
+                :days="item.sejour.nbJour"
+                :price="item.sejour.prixSejour"
                 :disabled="false"
                 v-on:total="(i) => getTotal(i)"
                 >
@@ -87,10 +87,10 @@ onMounted(() => {
   const panierStore = usePanierStore();
   panierStore.sejours.forEach(element => {
     if (element.idsejour){
-        axios.get('/api/sejour/' + element.idsejour)
+        axios.get('/api/Sejour/' + element.idsejour)
         .then((response) => {
             mesSejours.value.push({
-              sejour: response.data['data'], 
+              sejour: response.data, 
               qte: element.quantite
             });
         })
@@ -100,14 +100,6 @@ onMounted(() => {
     };
   });
 });
-
-const removesejour = (id) => {
-  if(confirm('Etes-vous sur de vouloir supprimer ce séjour ?')){
-    panierStore.removeSejour(id);
-    mesSejours.value = mesSejours.value.filter(item => item.sejour.idsejour !== id);
-  }
-}
-
 
 const getTotal = (totalParams) => {
   total.value += totalParams;

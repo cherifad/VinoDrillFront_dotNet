@@ -3,26 +3,26 @@
         <div class="">
             <div class="lg:grid lg:px-0 flex px-2 flex-col gap-4 lg:grid-cols-4">
                 <div class="lg:gap-4 flex-1 gap-2 flex items-center lg:flex-row flex-col lg:col-span-4 xl:col-span-3">
-                    <img :src="checkOnlineImage(sejour.photosejour) ? sejour.photosejour : '/src/assets/img/vineyard-ga92acf920_1920.jpg'" :alt="sejour.titresejour + ' image'" class="rounded-lg w-fit shadow-lg lg:max-w-lg">
+                    <img :src="checkOnlineImage(sejour.photoSejour) ? sejour.photoSejour : '/src/assets/img/vineyard-ga92acf920_1920.jpg'" :alt="sejour.titreSejour + ' image'" class="rounded-lg w-fit shadow-lg lg:max-w-lg">
                     <div class="flex mt-6 lg:hidden justify-between items-center gap-5">
-                        <h1 class="text-3xl" id="passenger">{{ sejour.titresejour }}</h1>
+                        <h1 class="text-3xl" id="passenger">{{ sejour.titreSejour }}</h1>
                         <div>
                             <p>A partir de</p>
-                            <span class="text-xl" id="passenger">{{ sejour.prixsejour }}€/pers</span>
+                            <span class="text-xl" id="passenger">{{ sejour.prixSejour }}€/pers</span>
                         </div>
                     </div>
                     <div class="flex-1 w-full text-center lg:text-left text-2xl font-normal">
                         Quelques informations sur le séjour
                         <ul>
-                            <li v-if="sejour.nbjour" class="text-lg">Nombre de journée(s) : <span></span>{{ sejour.nbjour }}</li>
-                            <li v-if="sejour.nbnuit" class="text-lg">Nombre de nuit(s) : <span></span>{{ sejour.nbnuit }}</li>
-                            <li v-if="sejour.libelletemps" class="text-lg">Durée : <span></span>{{ sejour.libelletemps }}</li>
-                            <li class="text-lg">Lieu : {{ sejour.destination.libelledestination }}</li>
-                            <li class="text-lg">Thème : {{ sejour.theme.libelletheme }}</li>
+                            <li v-if="sejour.nbJour" class="text-lg">Nombre de journée(s) : <span></span>{{ sejour.nbJour }}</li>
+                            <li v-if="sejour.nbNuit" class="text-lg">Nombre de nuit(s) : <span></span>{{ sejour.nbNuit }}</li>
+                            <li v-if="sejour.libelleTemps" class="text-lg">Durée : <span></span>{{ sejour.libelleTemps }}</li>
+                            <li class="text-lg">Lieu : {{ sejour.destinationSejourNavigation.libelleDestination }}</li>
+                            <li class="text-lg">Thème : {{ sejour.themeSejourNavigation.libelleTheme }}</li>
                         </ul>
                         <div class="flex gap-1 flex-wrap items-center justify-center lg:justify-start" v-auto-animate>                            
                             <a href="#etape" class="p-2 bg-white text-black block w-fit rounded-lg hover:-translate-y-2 mt-5">Voir les étapes</a>
-                            <a @click="!getCurrentCartSejour() ? panierStore.addSejour(sejour.idsejour, sejour.prixsejour) : addedToCart = true" class="p-2 bg-white select-none cursor-pointer text-black block w-fit rounded-lg hover:-translate-y-2 mt-5">
+                            <a @click="!getCurrentCartSejour() ? panierStore.addSejour(sejour.idSejour, sejour.prixSejour) : addedToCart = true" class="p-2 bg-white select-none cursor-pointer text-black block w-fit rounded-lg hover:-translate-y-2 mt-5">
                                 Ajouter au panier <br>
                                 <div v-if="getCurrentCartSejour()" class="flex justify-evenly">
                                     <span v-if="!addedToCart" class="text-sm">Déjà dans le panier</span>
@@ -30,7 +30,7 @@
                                 </div>
                             </a>
                             <Tooltip text="Pour ajouter une date à un séjour il faut le faire depuis le panier" />                            
-                            <ButtonLikeSejour class="mt-5" :idsejour="sejour.idsejour"/>
+                            <ButtonLikeSejour class="mt-5" :idsejour="sejour.idSejour"/>
                             <Tooltip text="Pour voir les séjours ajoutés aux favoris il faut être connecté"/>                                
                         </div>
                     </div>
@@ -40,14 +40,14 @@
                 </div>
             </div>
             <div class="justify-between items-center hidden lg:flex">
-                <h1 class="mt-12 text-5xl" id="passenger">{{ sejour.titresejour }}</h1>
+                <h1 class="mt-12 text-5xl" id="passenger">{{ sejour.titreSejour }}</h1>
                 <div>
                     <p>A partir de</p>
-                    <span class="mt-12 text-5xl" id="passenger">{{ sejour.prixsejour }}€/pers</span>
+                    <span class="mt-12 text-5xl" id="passenger">{{ sejour.prixSejour }}€/pers</span>
                 </div>
             </div>
             <p id="passenger" class="mt-6 text-3xl text-center lg:text-left">Description</p>
-            <p class="w-full text-xl mt-6 text-center lg:text-left"> {{ sejour.descriptionsejour }} </p>
+            <p class="w-full text-xl mt-6 text-center lg:text-left"> {{ sejour.descriptionSejour }} </p>
         </div>
         <div>
             
@@ -55,11 +55,11 @@
         
         <div id="etape" class="flex flex-col gap-3 mb-8">
             <h1 class="mt-5 lg:text-3xl text-xl md:text-2xl font-bold text-center lg:text-left">Voir les {{ etapes.length }} étapes du séjour</h1>
-            <div v-for="etape in etapes" :key="etape.idetape">
-                <SingleEtape class="mt-3" :titre="etape.titreetape" :description="etape.descriptionetape" :img="etape.photoetape"/>
+            <div v-for="etape in etapes" :key="etape.idEtape">
+                <SingleEtape class="mt-3" :titre="etape.titreEtape" :description="etape.descriptionEtape" :img="etape.photoEtape"/>
                 <div id="hebergement" class="flex flex-col w-full items-end before:">
                     <h1 class="mt-5 mb-2 w-11/12 text-2xl font-bold">Hébergement</h1>
-                    <SingleHebergement class=" w-11/12" :key="etape.hebergement.idhebergement" :titre="etape.hebergement.libellehebergement" :description="etape.hebergement.descriptionhebergement" :img="etape.hebergement.hotel.photopartenaire"/>
+                    <SingleHebergement class=" w-11/12" :key="etape.hebergementEtapeNavigation.idHebergement" :titre="etape.hebergementEtapeNavigation.libelleHebergement" :description="etape.hebergementEtapeNavigation.descriptionHebergement" img="etape.hebergementEtapeNavigation.hotel.photopartenaire"/>
                 </div>
             </div>
         </div>
@@ -90,19 +90,19 @@
                 class="mySwiper"
                 :freeMode="true"
             >
-                <swiper-slide v-for="sejour in relatedSejours" :key="sejour.idsejour">
-                    <router-link class="px-3 mb-3 lg:w-1/3" :id="sejour.idsejour" :to="{name: 'SingleSejour', params: {id: sejour.idsejour, slug: slugify(sejour.titresejour)}}">
+                <swiper-slide v-for="sejour in relatedSejours" :key="sejour.idSejour">
+                    <router-link class="px-3 mb-3 lg:w-1/3" :id="sejour.idSejour" :to="{name: 'SingleSejour', params: {id: sejour.idSejour, slug: slugify(sejour.titreSejour)}}">
                             <SingleCardSejour
-                                :key="sejour.idsejour"
-                                :title="sejour.titresejour"
-                                :description="sejour.descriptionsejour"
-                                :nights="sejour.nbnuit"
-                                :days="sejour.nbjour"
-                                :image="sejour.photosejour"
-                                :price="sejour.prixsejour"
-                                :id="sejour.idsejour"
-                                :libelleTemps="sejour.libelletemps"
-                                :notemoyenne="sejour.notemoyenne"
+                                :key="sejour.idSejour"
+                                :title="sejour.titreSejour"
+                                :description="sejour.descriptionSejour"
+                                :nights="sejour.nbNuit"
+                                :days="sejour.nbJour"
+                                :image="sejour.photoSejour"
+                                :price="sejour.prixSejour"
+                                :id="sejour.idSejour"
+                                :libelleTemps="sejour.libelleTemps"
+                                :notemoyenne="sejour.noteMoyenne"
                             />
                     </router-link>
                 </swiper-slide>
@@ -121,19 +121,19 @@
                 }"
                 class="mySwiper"
             >
-                <swiper-slide v-for="sejour in alreadyViewed" :key="sejour.idsejour">
-                    <router-link class="px-3 mb-3 lg:w-1/3" :id="sejour.idsejour" :to="{name: 'SingleSejour', params: {id: sejour.idsejour, slug: slugify(sejour.titresejour)}}">
+                <swiper-slide v-for="sejour in alreadyViewed" :key="sejour.idSejour">
+                    <router-link class="px-3 mb-3 lg:w-1/3" :id="sejour.idSejour" :to="{name: 'SingleSejour', params: {id: sejour.idSejour, slug: slugify(sejour.titreSejour)}}">
                         <SingleCardSejour
-                            :key="sejour.idsejour"
-                            :title="sejour.titresejour"
-                            :description="sejour.descriptionsejour"
-                            :nights="sejour.nbnuit"
-                            :days="sejour.nbjour"
-                            :image="sejour.photosejour"
-                            :price="sejour.prixsejour"
-                            :id="sejour.idsejour"
-                            :libelleTemps="sejour.libelletemps"
-                            :notemoyenne="sejour.notemoyenne"
+                            :key="sejour.idSejour"
+                            :title="sejour.titreSejour"
+                            :description="sejour.descriptionSejour"
+                            :nights="sejour.nbNuit"
+                            :days="sejour.nbJour"
+                            :image="sejour.photoSejour"
+                            :price="sejour.prixSejour"
+                            :id="sejour.idSejour"
+                            :libelleTemps="sejour.libelleTemps"
+                            :notemoyenne="sejour.noteMoyenne"
                         />
                     </router-link>
                 </swiper-slide>
@@ -178,7 +178,7 @@ const addedToLikes = ref(false);
 const getCurrentCartSejour = () => {
     const cart = panierStore.sejours;
     console.log(cart)
-    const sejour: any = cart.find((item: any) => item.idsejour ? item.idsejour.toString() === route.params.id : false);
+    const sejour: any = cart.find((item: any) => item.idSejour ? item.idSejour.toString() === route.params.id : false);
     return sejour;
 }
 
@@ -203,7 +203,7 @@ onMounted(async () => {
 
 
 // get slug from url
-const props = defineProps(['idsejour']);
+const props = defineProps(['idSejour']);
 const slug = route.params.slug;
 
 // current sejour
@@ -256,26 +256,28 @@ const getData = async (id) => {
     loading.value = true;
 
     //get the current sejour
-    axios.get('/api/sejour/' + id + '?avis=true&etape=true&destination=true&theme=true&hebergement=true')
+    axios.get('/api/Sejour/' + id + '?includaAvis=true&includeEtape=true&includeDestination=true&includeTheme=true&includeHebergement=true')
     .then((response) => {
-        sejour.value = response.data['data'];
-        reviewAnalytics(response.data['data']['avis']);
-        reviews.value = response.data['data']['avis'].reverse();
+        sejour.value = response.data;
+        loading.value = false;
+
+        reviewAnalytics(response.data['avisSejourNavigation']);
+        reviews.value = response.data['avisSejourNavigation'].reverse();
         // sort reviews by date
         reviews.value.sort((a: any, b: any) => {
-            return new Date(b.dateavis).getTime() - new Date(a.dateavis).getTime();
+            return new Date(b.dateAvis).getTime() - new Date(a.dateAvis).getTime();
         });
-        etapes.value = response.data['data']['etapes'].reverse();
+        etapes.value = response.data['etapeSejourNavigation'].reverse();
 
         // get the realted sejour if the current is loaded
-        axios.get('/api/sejour?destination=' + sejour.value.iddestination + '&limit=5&except=' + id)
+        axios.get('/api/Sejour?includeDestination=' + sejour.value.idDestination + '&limit=5&idSejour=' + id)
         .then((response) => {
-            relatedSejours.value = response.data['data'];
+            relatedSejours.value = response.data;
 
             // get the sejour already visited by the user
-            axios.get(`/api/sejour?idsejour=${viewedStore.idsejours.join(',')}`)
+            axios.get(`/api/Sejour?idsSejour=${viewedStore.idsejours.join(',')}`)
             .then((response) => {
-                alreadyViewed.value = response.data["data"];
+                alreadyViewed.value = response.data;
             })
         })
         .catch((error) => {
