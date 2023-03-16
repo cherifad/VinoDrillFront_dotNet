@@ -6,14 +6,16 @@
                 Filtres
                 <div>
                     <!-- <Input @filter="(i) => getFilteredData(i)" columnName="rien" :data="libelleDestination" name="Destinations" placeholder="Recherchez ici"/> -->
-                    <SejourSearch v-on:filter-destination="(i) => getDestinationFilter(i)"  :data="sejours" placeholder="Destinations, séjour,.."
-                        />
+                        
                     <SejourFilter :onFilterTheme="(i) => getThemeFilter(i)" :onFilterCatParticipant="(i) => getCatParticipantFilter(i)" />
                 </div>
             </div>
             <div class="col-span-4 lg:col-span-3">
-                <span class="pl-12 text-2xl fond-bold">{{ sejourcount }} sejour<span v-if="sejourcount > 0">s</span>
-                    trouvé<span v-if="sejourcount > 0">s</span></span>
+                <div class="flex items-center">
+                    <SejourSearch id="search" class="flex-1" v-on:filter-destination="(i) => getDestinationFilter(i)" :toHide="toHide"  :data="sejours" placeholder="Destinations, séjour,.."/>
+                    <span class="pl-12 text-2xl fond-bold w-fit">{{ sejourcount }} sejour<span v-if="sejourcount > 0">s</span>
+                        trouvé<span v-if="sejourcount > 0">s</span></span>
+                </div>
                 <div class="" v-auto-animate>
                     <div class="pt-12 grid gap-10 md:grid-cols-2 grid-cols-1 justify-center" v-if="!filteredData">
                         <router-link v-for="filter in sejours" :key="filter.idSejour" :id="filter.idSejour"
@@ -64,6 +66,8 @@ const theme = ref('');
 const destination = ref('');
 const catParticipant = ref('');
 
+const toHide = ref(false);
+
 const showMenu = ref(false);
 
 function slugify(string) {
@@ -87,6 +91,10 @@ onMounted(async () => {
         })
         .catch((error) => {
             console.log(error);
+        });
+
+        document.getElementById("search").addEventListener("blur", function() {
+            toHide.value = true;
         });
 });
 
