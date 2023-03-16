@@ -16,6 +16,9 @@ const adminMenu = ref();
 const admin = ref(false);
 const route = useRoute();
 
+// for back to top button
+const showBackToTop = ref(true);
+
 const mobileMenu = ref(false);
 const mobMenHtml = ref();
 const menuHamburger = ref();
@@ -31,6 +34,8 @@ watch(mobileMenu, (newVal, oldVal) => {
 const height = ref(0);
 
 onMounted(async () => {
+  window.onscroll = function() {scrollFunction()};
+
   useRoute().path.includes("admin") ? admin.value = true : admin.value = false;
   const header = document.querySelector("header");
 
@@ -103,6 +108,16 @@ watch(route, (newRoute, oldRoute) => {
   });
 });
 
+function scrollFunction() {
+  // get window height
+  const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+  if (document.body.scrollTop > windowHeight / 2  || document.documentElement.scrollTop > windowHeight / 2) {
+    showBackToTop.value = true;
+  } else {
+    showBackToTop.value = false;
+  }
+}
+
 </script>
 
 <template>
@@ -117,12 +132,27 @@ watch(route, (newRoute, oldRoute) => {
   
   <Footer />
   
-  <a href="#top" class="fixed text-black text-3xl bottom-4 right-4 p-3 cursor-pointer bg-white rounded-xl shadow-xl z-50">
-    <ion-icon class="hover:-translate-y-1" name="arrow-up"></ion-icon>
-  </a>
+  <transition name="fade">
+    <a v-if="showBackToTop" v-auto-animate href="#top" class="fixed text-white text-3xl bottom-4 right-4 p-2 cursor-pointer bg-rose rounded-full shadow-xl z-50 hover:-translate-y-2">
+      <ion-icon class="hover:-translate-y-1" name="arrow-up"></ion-icon>
+    </a>
+  </transition>
 
 </template>
 
 <style scoped>
+* {
+  scroll-behavior: smooth;
+  transition: all 0.3s ease-in-out;
+}
 
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0
+}
 </style>
