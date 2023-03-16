@@ -1,42 +1,49 @@
 <template>
-    <div class="flex items-center p-2 border-2 border-rose rounded-md mt-2 w-300">
-        <input v-model="search" @input="filterData"
-            class="w-full border-none bg-transparent outline-none" type="text" :placeholder="placeholder">
-        <ion-icon name="search" class="text-rose"></ion-icon>
-    </div>
+    <div>
+        <div class="flex items-center sticky top-5 p-2 border-2 border-rose rounded-md mt-2 flex-1">
+            <input v-model="search" @input="filterData"
+                class="w-full border-none bg-transparent outline-none" type="text" :placeholder="placeholder">
+            <ion-icon name="search" class="text-rose w-5 h-5"></ion-icon>
+        </div>
+        <div v-auto-animate v-if="toDisplayData || toHide" class="relative w-full">
+            <div v-auto-animate class="absolute z-50 flex gap-3 bg-rose p-5 mt-2 rounded-md w-full">
+                <div class="w-2/3">
+                    <!-- search results -->
+                    <h1 v-if="toDisplayData" class="mb-2">Séjour<span v-if="toDisplayData.length > 1">s</span> :</h1>
+                    <div v-if="toDisplayData && toDisplayData.length > 0" class="mt-2 flex flex-col gap-2" v-auto-animate>
+                        <router-link v-for="result in toDisplayData" :key="result.idSejour" class="grid grid-cols-3 gap-2 hover:-translate-y-1"
+                            :to="{ name: 'SingleSejour', params: { id: result.idSejour, slug: slugify(result.titreSejour) } }">
+                            <img class="rounded-lg" :src="result.photoSejour" :alt="result.titreSejour + ' image'">
+                            <div class="flex-1 col-span-2">
+                                <h3 class="text-base italic">{{ result.titreSejour }}</h3>
+                                <p class="text-sm font-bold">{{ result.prixSejour }}€/pers</p>
+                            </div>
+                        </router-link>
+                    </div>
+    
+                    <div v-else class="mt-2">
+                        <div v-if="toDisplayData" class="text-center text-sm italic">Aucun résultat</div>
+                    </div>
+                </div>
+                <div class="w-1/3">
+                    <!-- destinations -->
+                    <h1 v-if="toDisplayDestination" class="mb-2">Destination<span v-if="toDisplayDestination.length > 1">s</span> :</h1>
+                    <div v-if="toDisplayDestination && toDisplayDestination.length > 0" class="mt-2">
+                        <ul v-if="destinations" class="flex gap-2 flex-wrap" v-auto-animate>
+                            <li v-for="destination in toDisplayDestination" :key="destination.idDestination" @click="addToSelectedIdDestination(destination.idDestination, destination.libelleDestination)" class="cursor-pointer select-none p-2 bg-slate-500 rounded-lg hover:-translate-y-1">{{ destination.libelleDestination }}</li>
+                        </ul>
+                    </div>
+                    <div v-else class="mt-2">
+                        <div v-if="toDisplayDestination" class="text-center text-sm italic">Aucun résultat</div>
+                    </div>
+                    <ul v-if="selectedDestination.length > 0" class="flex gap-2 flex-wrap" v-auto-animate>
+                        <li v-for="destination in selectedDestination" :key="destination" @click="addToSelectedDestination(destination)" class="cursor-pointer select-none p-2 bg-green-500 rounded-lg hover:-translate-y-1">{{ destination }}</li>
+                    </ul>
+                </div>
 
-    <!-- search results -->
-    <h1 v-if="toDisplayData" class="mb-2">Séjour<span v-if="toDisplayData.length > 1">s</span> :</h1>
-    <div v-if="toDisplayData && toDisplayData.length > 0" class="mt-2 flex flex-col gap-2" v-auto-animate>
-        <router-link v-for="result in toDisplayData" :key="result.idSejour" class="grid grid-cols-3 gap-2 hover:-translate-y-1"
-            :to="{ name: 'SingleSejour', params: { id: result.idSejour, slug: slugify(result.titreSejour) } }">
-            <img class="rounded-lg" :src="result.photoSejour" :alt="result.titreSejour + ' image'">
-            <div class="flex-1 col-span-2">
-                <h3 class="text-base italic">{{ result.titreSejour }}</h3>
-                <p class="text-sm font-bold">{{ result.prixSejour }}€/pers</p>
             </div>
-        </router-link>
+        </div>    
     </div>
-    <div v-else class="mt-2">
-        <div v-if="toDisplayData" class="text-center text-sm italic">Aucun résultat</div>
-    </div>
-
-
-    <!-- destinations -->
-    <h1 v-if="toDisplayDestination" class="mb-2">Destination<span v-if="toDisplayDestination.length > 1">s</span> :</h1>
-    <div v-if="toDisplayDestination && toDisplayDestination.length > 0" class="mt-2">
-        <ul v-if="destinations" class="flex gap-2 flex-wrap" v-auto-animate>
-            <li v-for="destination in toDisplayDestination" :key="destination.idDestination" @click="addToSelectedIdDestination(destination.idDestination, destination.libelleDestination)" class="cursor-pointer select-none p-2 bg-slate-500 rounded-lg hover:-translate-y-1">{{ destination.libelleDestination }}</li>
-        </ul>
-    </div>
-    <div v-else class="mt-2">
-        <div v-if="toDisplayDestination" class="text-center text-sm italic">Aucun résultat</div>
-    </div>
-    <!--ici-->
-    <ul v-if="selectedDestination.length > 0" class="flex gap-2 flex-wrap" v-auto-animate>
-        <li v-for="destination in selectedDestination" :key="destination" @click="addToSelectedDestination(destination)" class="cursor-pointer select-none p-2 bg-green-500 rounded-lg hover:-translate-y-1">{{ destination }}</li>
-    </ul>
-
 </template>
 
 <script setup lang="ts">
@@ -48,6 +55,7 @@ const emit = defineEmits(['filterDestination']);
 const props = defineProps<{
     data: any;
     placeholder: string;
+    toHide: boolean;
 }>()
 
 const toDisplayData: any = ref(null);
@@ -98,7 +106,7 @@ function addToSelectedIdDestination(idDestination: any, libelleDestination: any)
     }
 
     //Gestion de l'affichage "selectionné"
-    addToSelectedDestination(libelleDestination, idDestination);
+    addToSelectedDestination(libelleDestination);
 
     selectedIdDestination.value.length > 0 ? filterDestination.value = '&idsDestination=' + selectedIdDestination.value.join(',') : filterDestination.value = '&idsDestination=';
 
