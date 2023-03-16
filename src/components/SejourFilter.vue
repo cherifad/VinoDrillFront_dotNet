@@ -86,25 +86,25 @@ const props = defineProps<{
 
 
 onMounted(async () => {    
-    axios.get('http://51.83.36.122:5005/api/catparticipant/')
+    axios.get('/api/Catparticipant/')
         .then((response) => {
-            catParticipant.value = response.data['data'];
+            catParticipant.value = response.data;
         })
         .catch((error) => {
             console.log(error);
         });
 
-    axios.get('http://51.83.36.122:5005/api/theme/')
+    axios.get('/api/Theme/')
         .then((response) => {
-            theme.value = response.data['data'];
+            theme.value = response.data;
         })
         .catch((error) => {
             console.log(error);
         });
 
-    axios.get('http://51.83.36.122:5005/api/participe')
+    axios.get('/api/Participe')
         .then((response) => {
-            participe.value = response.data['data'];
+            participe.value = response.data;
         })
         .catch((error) => {
             console.log(error);
@@ -119,10 +119,10 @@ onMounted(async () => {
         option.addEventListener('click', () => {
 
             // find corresponding theme id in theme array
-            toggle(selectedtheme.value, theme.value.find((t: any) => option.innerText.toLowerCase().includes(t.libelletheme.toLowerCase()))?.idtheme);
+            toggle(selectedtheme.value, theme.value.find((t: any) => option.innerText.toLowerCase().includes(t.libelleTheme.toLowerCase()))?.idTheme);
 
             // set selected theme in url
-            selectedtheme.value.length > 0 ? filtertheme.value = '&theme=' + selectedtheme.value.join(',') : filtertheme.value = '&theme=null';
+            selectedtheme.value.length > 0 ? filtertheme.value = '&idstheme=' + selectedtheme.value.join(',') : filtertheme.value = '&idstheme=';
 
             emit('filterTheme', filtertheme.value);
             
@@ -138,10 +138,10 @@ onMounted(async () => {
     catParticipantOptions?.forEach((option: any) => {
         option.addEventListener('click', () => {
             // find corresponding catParticipant id in catParticipant dictionary and add it to selectedcatParticipant array   
-            toggle(selectedcatParticipant.value, catParticipant.value.find((t: any) => option.innerText.includes(t.nomcategorieparticipant))?.idcategorieparticipant);
+            toggle(selectedcatParticipant.value, catParticipant.value.find((t: any) => option.innerText.includes(t.nomCategorieParticipant))?.idCategorieParticipant);
 
             // set selected catParticipant in url
-            selectedcatParticipant.value.length > 0 ? filtercatParticipant.value = '&participe=' + selectedcatParticipant.value.join(',') : filtercatParticipant.value = '&participe=null';
+            selectedcatParticipant.value.length > 0 ? filtercatParticipant.value = '&idsCatParticipant=' + selectedcatParticipant.value.join(',') : filtercatParticipant.value = '&idsCatParticipant=';
 
             emit('filterCatParticipant', filtercatParticipant.value);
             

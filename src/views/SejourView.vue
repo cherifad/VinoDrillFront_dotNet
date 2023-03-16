@@ -91,9 +91,9 @@ onMounted(async () => {
 });
 
 const getFilteredData = () => {
-    axios.get('/api/sejour?q=t' + theme.value + destination.value + catParticipant.value)
+    axios.get('/api/Sejour?q=t' + theme.value + destination.value + catParticipant.value)
         .then((response) => {
-            filteredData.value = response.data['data'];
+            filteredData.value = response.data;
             console.log(filteredData.value)
             sejourcount.value = Object.keys(filteredData.value).length;
         })

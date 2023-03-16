@@ -26,14 +26,15 @@
     <h1 v-if="toDisplayDestination" class="mb-2">Destination<span v-if="toDisplayDestination.length > 1">s</span> :</h1>
     <div v-if="toDisplayDestination && toDisplayDestination.length > 0" class="mt-2">
         <ul v-if="destinations" class="flex gap-2 flex-wrap" v-auto-animate>
-            <li v-for="destination in toDisplayDestination" :key="destination.iddestination" @click="addToSelectedIdDestination(destination.iddestination, destination.libelledestination)" class="cursor-pointer select-none p-2 bg-slate-500 rounded-lg hover:-translate-y-1">{{ destination.libelledestination }}</li>
+            <li v-for="destination in toDisplayDestination" :key="destination.idDestination" @click="addToSelectedIdDestination(destination.idDestination, destination.libelleDestination)" class="cursor-pointer select-none p-2 bg-slate-500 rounded-lg hover:-translate-y-1">{{ destination.libelleDestination }}</li>
         </ul>
     </div>
     <div v-else class="mt-2">
         <div v-if="toDisplayDestination" class="text-center text-sm italic">Aucun résultat</div>
     </div>
+    <!--ici-->
     <ul v-if="selectedDestination.length > 0" class="flex gap-2 flex-wrap" v-auto-animate>
-        <li v-for="destination in selectedDestination" :key="destination.iddestination" @click="addToSelectedDestination(destination.libelleDestination, destination.iddestination)" class="cursor-pointer select-none p-2 bg-green-500 rounded-lg hover:-translate-y-1">{{ destination }}</li>
+        <li v-for="destination in selectedDestination" :key="destination" @click="addToSelectedDestination(destination)" class="cursor-pointer select-none p-2 bg-green-500 rounded-lg hover:-translate-y-1">{{ destination }}</li>
     </ul>
 
 </template>
@@ -66,8 +67,8 @@ const checkIfStringNotEmpty = (string: string) => {
 }
 
 onMounted(() => {
-    axios.get("/api/destination").then((res) => {
-        destinations.value = res.data['data'];
+    axios.get("/api/Destination").then((res) => {
+        destinations.value = res.data;
     });
 });
 
@@ -77,7 +78,7 @@ function filterData() {
             return item.titreSejour.toLowerCase().includes(search.value.toLowerCase());
         });
         toDisplayDestination.value = destinations.value.filter((item) => {
-            return item.libelledestination.toLowerCase().includes(search.value.toLowerCase());
+            return item.libelleDestination.toLowerCase().includes(search.value.toLowerCase());
         });
         // limit data to display to 5
         toDisplayData.value = toDisplayData.value.slice(0, 5);
@@ -96,21 +97,25 @@ function addToSelectedIdDestination(idDestination: any, libelleDestination: any)
         selectedIdDestination.value.push(idDestination);
     }
 
-    selectedIdDestination.value.length > 0 ? filterDestination.value = '&destination=' + selectedIdDestination.value.join(',') : filterDestination.value = '&destination=null';
+    //Gestion de l'affichage "selectionné"
+    addToSelectedDestination(libelleDestination, idDestination);
+
+    selectedIdDestination.value.length > 0 ? filterDestination.value = '&idsDestination=' + selectedIdDestination.value.join(',') : filterDestination.value = '&idsDestination=';
 
     console.log(filterDestination.value);
 
     emit('filterDestination', filterDestination.value);
 }
 
-function addToSelectedDestination(libelleDestination: any, idDestination: any) {
-    if (selectedDestination.value.includes(libelleDestination)) {
+function addToSelectedDestination(destination: any) {
+    if (selectedDestination.value.includes(destination)) {
         selectedDestination.value = selectedDestination.value.filter((item: any) => {
-            return item !== libelleDestination;
+            return item !== destination;
         });
     } else {
-        selectedDestination.value.push(libelleDestination);
+        selectedDestination.value.push(destination);
     }
+    console.log("Là => " + selectedDestination.value)
 }
 
 function slugify(string: string) {
