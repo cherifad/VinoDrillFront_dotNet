@@ -135,7 +135,7 @@
           <RouterLink
             to="/mon-compte"
             class="hover:text-opacity-70 hidden md:flex gap-2 items-center"
-            >Bonjour {{ authStore.user.prenomclient }}
+            >Bonjour {{ authStore.user.nomClient }}
             <svg
               v-if="config.admins.includes(authStore.user.emailclient)"
               xmlns="http://www.w3.org/2000/svg"

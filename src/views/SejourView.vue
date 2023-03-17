@@ -93,9 +93,15 @@ onMounted(async () => {
             console.log(error);
         });
 
+<<<<<<< HEAD
         /*document.getElementById("search").addEventListener("blur", function() {
             toHide.value = true;
         });*/
+=======
+        // document.getElementById("search").addEventListener("blur", function() {
+        //     toHide.value = true;
+        // });
+>>>>>>> 363e30f3fbbf4b9daba126f94e699cb86521bb3f
 });
 
 const getFilteredData = () => {
