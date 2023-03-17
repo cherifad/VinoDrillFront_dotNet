@@ -1,26 +1,45 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useStorage } from '@vueuse/core';
+import { useRoute } from "vue-router";
+
+const router = useRoute();
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
+        authData: useStorage('authData', null),
         authUser: null,
+        authToken: "",
         authErrors: [],
     }),
     getters: {
-        user: (state) => state.authUser,
+        user: (state) => state.authData?.userDetails,
+        token: (state) => state.authData?.token,
         errors: (state) => state.authErrors,
-        isAuthenticated: (state) => state.authUser !== null,
+        isAuthenticated: (state) => state.user !== undefined,
     },
     actions: {
-        async getToken() {
-            await axios.get("/sanctum/csrf-cookie");
+        async isValid() {
+            const isValid = false;
+            await axios.get("/api/User/CheckToken?token=" + this.authToken)
+                .then((response) => {
+                    isValid = response.data.valid;
+                })
+                .catch(() => {
+                });
+            return isValid;
         },
         async getUser() {
-            await this.getToken();
-            await axios.get("/api/user")
+            if (!await this.isValid()) {
+                this.authUser = null;
+                this.authToken = "";
+                this.router.push("/connexion");
+                return;
+            } 
+            await axios.get("/api/Authenticate/login")
                 .then((response) => {
-                    this.authUser = response.data;
+                    this.token = response.data.token;
+                    this.authUser = response.data.userDetails;
                 })
                 .catch((error) => {
                     if(error.response.status === 401) {
@@ -28,16 +47,15 @@ export const useAuthStore = defineStore("auth", {
                     };                                                                                                             
                 });
         },
-        async login(username, password) {
+        async login(email, password) {
             this.authError = [];
             // await this.getToken();
             try {
-                const response = await axios.post("/Authenticate/login", {
-                    "username": username,
+                const response = await axios.post("/api/Authenticate/login", {
+                    "email": email,
                     "password": password,
                 });
-                console.log(response.data);
-                this.authUser = response.data.token;
+                this.authData = response.data;
                 this.router.push("/mon-compte");
             } catch (error) {
                 this.authErrors.push("Identifiants incorrects");
@@ -46,7 +64,8 @@ export const useAuthStore = defineStore("auth", {
         async logout() {
             // await axios.post("/logout");
             this.router.push("/");
-            this.authUser = null;
+            this.authName = null;
+            this.authToken = "";
         },
         async register(nomclient, prenomclient, emailclient, datenaissance, sexe, motdepasse, motdepasse_confirmation) {
             this.authError = [];
