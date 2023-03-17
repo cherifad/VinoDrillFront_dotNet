@@ -93,9 +93,9 @@ onMounted(async () => {
             console.log(error);
         });
 
-        document.getElementById("search").addEventListener("blur", function() {
+        /*document.getElementById("search").addEventListener("blur", function() {
             toHide.value = true;
-        });
+        });*/
 });
 
 const getFilteredData = () => {

@@ -135,8 +135,8 @@ const checkCheckout = () => {
   background-repeat: no-repeat;
 }
 
-#bg-image:hover {
-  background-size: 205%;
+#bg-image:hover{
+  /*background-size: 200%;*/
 }
 
 #box {

@@ -76,7 +76,7 @@
             </div>
         <div v-if="reviews.length > 0" id="avis" class="flex flex-col gap-3 mb-8">
             <h1 class="mt-5 lg:text-3xl text-xl md:text-2xl font-bold">Voir les {{ reviews.length }} avis</h1>
-            <SingleComment v-for="review in reviews" :estreponse="review.estreponse" :reponse="review.reponse_admin" :key="review.idavis" :id="review.idavis" :note="review.note" :comment="review.commentaire" :date="review.dateavis" :title="review.titreavis"/>
+            <SingleComment v-for="review in reviews" :estreponse="review.estReponse" :reponse="review.reponse_admin" :key="review.idAvis" :id="review.idAvis" :note="review.note" :comment="review.commentaire" :date="review.dateAvis" :title="review.titreAvis"/>
         </div>
 
         <div id="related" v-if="relatedSejours">
@@ -90,7 +90,7 @@
                 class="mySwiper"
                 :freeMode="true"
             >
-                <swiper-slide v-for="sejour in relatedSejours" :key="sejour.idSejour">
+                <swiper-slide v-for="sejour in relatedSejours" class="px-3 mb-3 lg:w-1/3" :key="sejour.idSejour">
                     <router-link class="px-3 mb-3 lg:w-1/3" :id="sejour.idSejour" :to="{name: 'SingleSejour', params: {id: sejour.idSejour, slug: slugify(sejour.titreSejour)}}">
                             <SingleCardSejour
                                 :key="sejour.idSejour"
@@ -121,7 +121,7 @@
                 }"
                 class="mySwiper"
             >
-                <swiper-slide v-for="sejour in alreadyViewed" :key="sejour.idSejour">
+                <swiper-slide v-for="sejour in alreadyViewed" class="px-3 mb-3 lg:w-1/3" :key="sejour.idSejour">
                     <router-link class="px-3 mb-3 lg:w-1/3" :id="sejour.idSejour" :to="{name: 'SingleSejour', params: {id: sejour.idSejour, slug: slugify(sejour.titreSejour)}}">
                         <SingleCardSejour
                             :key="sejour.idSejour"
@@ -192,9 +192,9 @@ const nompartenaire: any = ref(null);
 const visites: any = ref(null);
 
 onMounted(async () => {
-    axios.get('/api/visite')
+    axios.get('/api/Visite')
     .then((response) => {
-        visites.value = response.data['data'];
+        visites.value = response.data;
     })
     .catch((error) => {
         console.log(error);
@@ -270,7 +270,7 @@ const getData = async (id) => {
         etapes.value = response.data['etapeSejourNavigation'].reverse();
 
         // get the realted sejour if the current is loaded
-        axios.get('/api/Sejour?includeDestination=' + sejour.value.idDestination + '&limit=5&idSejour=' + id)
+        axios.get('/api/Sejour?idsDestination=' + sejour.value.idDestination + '&limit=5&idSejour=' + id)
         .then((response) => {
             relatedSejours.value = response.data;
 
