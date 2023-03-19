@@ -40,8 +40,7 @@
             </div>
             <span v-if="!edit" class="text-xl font-bold">{{ toReadableDate(dateDeNaissance) }}</span>
             <input v-if="edit" v-model="form.dateDeNaissance" type="date" id="birthdate"
-                                class="rounded-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
-                                max="12-02-1992">  
+                                class="rounded-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none">  
             <h1 class="font-bold text-red-500" v-if="error.datenaissance && edit" v-for="item in error.datenaissance">{{item}}</h1>     
         </div>
         <div class="flex gap-5 items-center" v-auto-animate>
@@ -49,14 +48,15 @@
                 <ion-icon name="male-female"></ion-icon>
                 <h1 class="text-xl font-bold">Sexe : </h1>
             </div>
-            <span v-if="!edit" class="text-xl font-bold">{{ sexe == 'H' ? 'Homme' : 'Femme' }}</span>
+            <span v-if="!edit" class="text-xl font-bold">{{ sexe == 'M' ? 'Homme' : 'Femme' }}</span>
             <div class="flex gap-3" v-if="edit">
-                <div @click="form.sexe = 'H'" :class="form.sexe == 'H' ? 'opacity-100' : 'opacity-60'"
+                <div @click="form.sexe = 'M'" :class="form.sexe == 'M' ? 'opacity-100' : 'opacity-60'"
                     class="text-xl font-bold text-black p-3 rounded-md bg-white cursor-pointer select-none">M
                 </div>
-                <div @click="form.sexe = 'F'" :class="form.sexe == 'H' ? 'opacity-60' : 'opacity-100'"
+                <div @click="form.sexe = 'F'" :class="form.sexe == 'M' ? 'opacity-60' : 'opacity-100'"
                     class="text-xl font-bold text-black p-3 rounded-md bg-white cursor-pointer select-none">
-                    Mme</div>
+                    Mme
+                </div>
             </div>
         </div> 
         <div v-if="edit" class="w-full flex">
@@ -69,11 +69,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import axios from 'axios';
+import { useAuthStore } from '../../stores/auth';
 
 const edit = ref(false);
 const error: any = ref([]);
+
+// define a loading emit function
+const emit = defineEmits<{
+    (event: 'loading', isLoading: boolean): void;
+}>()
 
 function toReadableDate(date: string) {
     const dateObj = new Date(date);
@@ -91,6 +97,8 @@ const props = defineProps<{
     email: any;
     sexe: any;
     dateDeNaissance: any;
+    token: any;
+    motDePasse: any;
 }>();
 
 const form = ref({
@@ -104,21 +112,30 @@ const form = ref({
 
 async function saveUpdateInfo() {
     if(confirm("Voulez-vous vraiment modifier vos informations ?") == false) return;
-    await axios.put(`/api/user/${props.id}`, {
-        idclient: props.id,
-        nomclient: form.value.nom,
-        prenomclient: form.value.prenom,
-        datenaissance: form.value.dateDeNaissance,
-        sexe: form.value.sexe,
-        emailclient: form.value.email,
+
+    emit('loading', true);
+
+    var user = useAuthStore().user;
+    user.nomClient = form.value.nom;
+    user.prenomClient = form.value.prenom;
+    user.emailClient = form.value.email;
+    user.sexeClient = form.value.sexe;
+    user.dateNaissanceClient = form.value.dateDeNaissance;
+
+    await axios.put(`/api/User/${props.id}`, user,
+    {
+        headers: {
+            'Authorization': 'Bearer ' + props.token + '',
+        },
     })
-    .then((res) => {
+    .then(() => {
         window.location.reload();
     })
     .catch((err) => {
         if (err.response.status === 422) {
             error.value = err.response.data.errors;
         }
+        emit('loading', false);
     });
 };
 </script>

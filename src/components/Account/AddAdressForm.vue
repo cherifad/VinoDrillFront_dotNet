@@ -34,12 +34,12 @@
                     </div>                               
                 </div>
                 <label for="libelle" class="w-full -mt-4">Libellé de l'adresse</label>
-                <input v-model="form.libelle" type="text" id="libelle" placeholder="Entrez ici le libellé de votre adresse" class="w-full -mt-2 border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
+                <input v-model="form.libelleAdresse" type="text" id="libelle" placeholder="Entrez ici le libellé de votre adresse" class="w-full -mt-2 border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
                 <label for="" class="w-full">Les champs suivants sont remplis automatiquement et ne peuvent être mofifiés</label>
-                <input disabled v-model="form.rue" type="text" placeholder="Rue" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
-                <input disabled v-model="form.ville" type="text" placeholder="Ville" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
-                <input disabled v-model="form.codepostal" type="number" placeholder="Code postal" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
-                <input disabled v-model="form.pays" type="text" placeholder="Pays" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
+                <input disabled v-model="form.rueAdresse" type="text" placeholder="Rue" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
+                <input disabled v-model="form.villeAdresse" type="text" placeholder="Ville" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
+                <input disabled v-model="form.codePostalAdresse" type="number" placeholder="Code postal" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
+                <input disabled v-model="form.paysAdresse" type="text" placeholder="Pays" class="w-full opacity-60 cursor-not-allowed border font-normal border-rose outline-none bg-transparent p-2 rounded-md">
                 <button @click="addNewAdress" class="flex cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 p-3 bg-rose border-rose border-2 hover:bg-transparent font-semibold">Ajouter</button>
             </div>
         </div>
@@ -61,12 +61,12 @@ const props = defineProps<{
 }>();
 
 const form = ref({
-    libelle: '',
-    rue: '',
-    ville: '',
-    codepostal: '',
-    pays: '',
-    idclient: props.idclient,
+    libelleAdresse: '',
+    rueAdresse: '',
+    villeAdresse: '',
+    codePostalAdresse: '',
+    paysAdresse: '',
+    idClient: props.idclient
 });
 
 const close = () => {
@@ -74,7 +74,8 @@ const close = () => {
 }
 
 const addNewAdress = async () => {
-    await axios.post('/api/adresse', form.value).then(() => {
+    console.log(form.value);
+    await axios.post('/api/Adresse', form.value).then(() => {
         window.location.reload();
     });
     close();
@@ -92,10 +93,10 @@ const autoComplete = async(load) => {
 };
 
 const fillData = (data) => {
-    form.value.rue = `${!data.housenumber ? '' : data.housenumber} ${data.street}`;
-    form.value.ville = data.city;
-    form.value.codepostal = data.postcode;
-    form.value.pays = data.country;
+    form.value.rueAdresse = `${!data.housenumber ? '' : data.housenumber} ${data.street}`;
+    form.value.villeAdresse = data.city;
+    form.value.codePostalAdresse = data.postcode;
+    form.value.paysAdresse = data.country;
 
     results.value = [];
 }

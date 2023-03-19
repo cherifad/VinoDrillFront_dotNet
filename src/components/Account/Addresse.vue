@@ -94,6 +94,15 @@ const updateAdress = () => {
 const deleteAdress = () => {
     if (confirm("Voulez-vous vraiment supprimer cette adresse ?")) {
         axios.delete(`/api/adresse/${props.id}`).then(() => {
+            // reload page and set a url param to show a message
+            // Set the additional parameter
+            var additionalParam = "choice=address";
+
+            // Set the new URL with the additional parameter
+            var newUrl = window.location.href + "?" + additionalParam;
+
+            // Reload the page with the new URL
+            window.location.href = newUrl;
             window.location.reload();
         })
     }

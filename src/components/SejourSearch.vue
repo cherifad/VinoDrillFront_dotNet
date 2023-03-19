@@ -99,25 +99,25 @@ function filterData() {
     }
 }
 
-function addToSelectedIdDestination(destination: any, libelleDestination: any) {
-    console.log(toDisplayDestination);
-    if (selectedIdDestination.value.includes(idDestination)) {
-        selectedIdDestination.value = selectedIdDestination.value.filter((item: any) => {
-            return item !== idDestination;
-        });
-    } else {
-        selectedIdDestination.value.push(idDestination);
-    }
+// function addToSelectedIdDestination(destination: any, libelleDestination: any) {
+//     console.log(toDisplayDestination);
+//     if (selectedIdDestination.value.includes(idDestination)) {
+//         selectedIdDestination.value = selectedIdDestination.value.filter((item: any) => {
+//             return item !== idDestination;
+//         });
+//     } else {
+//         selectedIdDestination.value.push(idDestination);
+//     }
 
-    //Gestion de l'affichage "selectionné"
-    addToSelectedDestination(libelleDestination);
+//     //Gestion de l'affichage "selectionné"
+//     addToSelectedDestination(libelleDestination);
 
-    selectedIdDestination.value.length > 0 ? filterDestination.value = '&idsDestination=' + selectedIdDestination.value.join(',') : filterDestination.value = '&idsDestination=';
+//     selectedIdDestination.value.length > 0 ? filterDestination.value = '&idsDestination=' + selectedIdDestination.value.join(',') : filterDestination.value = '&idsDestination=';
 
-    console.log(filterDestination.value);
+//     console.log(filterDestination.value);
 
-    emit('filterDestination', filterDestination.value);
-}
+//     emit('filterDestination', filterDestination.value);
+// }
 
 function addToSelectedDestination(destination: any) {
     if (selectedDestination.value.includes(destination)) {

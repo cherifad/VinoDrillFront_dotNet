@@ -2,15 +2,15 @@
     <div class="min-h-fit mb-10">
         <div v-if="mesFavoris && lenghtFavoris > 0" class="lg:px-14 py-5">
             <div class="flex flex-wrap justify-center">
-                <div v-for="sejour in mesFavoris" :key="sejour.idsejour" class="md:px-2 py-2 lg:w-1/3 md:w-1/2 mb-20" >
-                    <RouterLink :to="{ name: 'SingleSejour', params: { id: sejour.idsejour, slug: slugify(sejour.titresejour) }}">
-                        <SingleCardSejour :title="sejour.titresejour"
-                                    :description="sejour.descriptionsejour" :nights="sejour.nbnuit" :days="sejour.nbjour"
-                                    :image="sejour.photosejour" :price="sejour.prixsejour" :id="sejour.idsejour"
-                                    :libelleTemps="sejour.libelletemps" :notemoyenne="sejour.notemoyenne" />
+                <div v-for="sejour in mesFavoris" :key="sejour.idSejour" class="md:px-2 py-2 lg:w-1/3 md:w-1/2 mb-20" >
+                    <RouterLink :to="{ name: 'SingleSejour', params: { id: sejour.idSejour, slug: slugify(sejour.titreSejour) }}">
+                        <SingleCardSejour :title="sejour.titreSejour"
+                                    :description="sejour.descriptionSejour" :nights="sejour.nbNuit" :days="sejour.nbJour"
+                                    :image="sejour.photoSejour" :price="sejour.prixSejour" :id="sejour.idSejour"
+                                    :libelleTemps="sejour.libelleTemps" :notemoyenne="sejour.noteMoyenne" />
                     </RouterLink>
                     <div class="flex justify-center h-fit" title="Supprimer">
-                        <span @click="removeSejour(sejour.idsejour)" class="cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 p-3 bg-rose border-rose border-2 hover:bg-transparent font-semibold">Supprimer</span>
+                        <span @click="removeSejour(sejour.idSejour)" class="cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 p-3 bg-rose border-rose border-2 hover:bg-transparent font-semibold">Supprimer</span>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,7 @@ likesStore.sejours.forEach(element => {
         console.log("element", element.idsejour)
         axios.get('/api/sejour/' + element.idsejour)
         .then((response) => {
-            console.log(response.data['data'])
-            mesFavoris.value.push(response.data['data'])
+            mesFavoris.value.push(response.data)
         })
         .catch((error) => {
             console.log(error);

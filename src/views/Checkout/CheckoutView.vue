@@ -29,14 +29,14 @@
       >
         <div class="w-full">
           <PanierItem
-            :id="item.sejour.idsejour"
-            :title="item.sejour.titresejour"
-            :image="item.sejour.photosejour"
-            :nights="item.sejour.nbnuit"
-            :days="item.sejour.nbjour"
-            :price="item.sejour.prixsejour"
+            :id="item.sejour.idSejour"
+            :title="item.sejour.titreSejour"
+            :image="item.sejour.photoSejour"
+            :nights="item.sejour.nbNuit"
+            :days="item.sejour.nbJour"
+            :price="item.sejour.prixSejour"
             :disabled="true"
-            v-on:total="(i) => getTotal(i, item.sejour.titresejour)"
+            v-on:total="(i) => getTotal(i, item.sejour.titreSejour)"
           >
           </PanierItem>
         </div>
@@ -91,15 +91,15 @@ onMounted(async () => {
     }
     panierStore.sejours.forEach((element) => {
         if (element.idsejour) {
-            axios.get("/api/sejour/" + element.idsejour)
+            axios.get("/api/Sejour/" + element.idsejour)
                 .then((response) => {
                     articles.value.push({
-                        sejour: response.data["data"],
+                        sejour: response.data,
                     });
                     items.push({
-                        name: response.data["data"].titresejour,
-                        description: response.data["data"].descriptionsejour,
-                        unit_amount: response.data["data"].prixsejour,
+                        name: response.data.titreSejour,
+                        description: response.data.descriptionSejour,
+                        unit_amount: response.data.prixSejour,
                         currency: 'EUR',
                         quantity: 1,
                         metadata: {

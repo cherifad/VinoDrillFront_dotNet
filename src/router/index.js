@@ -204,6 +204,11 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/paiement/traitement/:stripeId([a-z0-9_]+)/:jwt([a-zA-Z0-9-._~+/]+)',
+      name: 'Traitement',
+      component: () => import('../views/Checkout/TraitementView.vue'),
+    },
+    {
       path: '/paiement/offir',
       name: 'Offrir',
       component: () => import('../views/Checkout/OffrirCheckoutView.vue'),

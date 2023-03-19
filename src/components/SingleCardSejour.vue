@@ -34,8 +34,9 @@ const props = defineProps<{
     }>(); 
 
 
-// function to wait for image to be fully loaded, image is loaded from a link
+// function to wait for image to be fully loaded
 function loadImage(url: string) {
+    // if image is not online, use a default image
     return new Promise((resolve, reject) => {
         const image = new Image();
         image.src = url;
@@ -43,6 +44,7 @@ function loadImage(url: string) {
         image.onerror = reject;
     });
 }
+
 
 onMounted(async () => {
     await loadImage(props.image);

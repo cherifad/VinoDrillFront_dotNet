@@ -57,7 +57,7 @@
         />
     </div>
 
-    <AddAdressForm v-if="!closeAddAdress" v-on:toClose="(i) => setCloseAddAdress(i)" :idclient="authStore.user.idclient" />
+    <AddAdressForm v-if="!closeAddAdress" v-on:toClose="(i) => setCloseAddAdress(i)" :idclient="authStore.user.idClient" />
     
     <div id="content" v-auto-animate class="pt-5">
         <!-- Adresses -->
@@ -69,9 +69,9 @@
                     Ajouter une adresse
                 </div>
             </div>
-            <div class="w-full flex flex-wrap" v-if="authStore.user.adresses && authStore.user.adresses.length > 0">
-                <div class="flex-1 px-3 py-3" v-for="adresse in authStore.user.adresses" :key="adresse.idadresse">
-                    <AddresseVue :canEdit="true" :id="adresse.idadresse" :libelleAdress="adresse.libelleadresse" :rueAdresse="adresse.rueadresse" :villeAdresse="adresse.villeadresse" :codePostalAdresse="adresse.cpadresse" :paysAdresse="adresse.pays" />
+            <div class="w-full flex flex-wrap" v-if="userData.adresseClientNavigation && userData.adresseClientNavigation.length > 0">
+                <div class="flex-1 px-3 py-3" v-for="adresse in userData.adresseClientNavigation" :key="adresse.idAdresse">
+                    <AddresseVue :canEdit="true" :id="adresse.idAdresse" :libelleAdress="adresse.libelleAdresse" :rueAdresse="adresse.rueAdresse" :villeAdresse="adresse.villeAdresse" :codePostalAdresse="adresse.codePostalAdresse" :paysAdresse="adresse.paysAdresse" />
                 </div>
             </div>
             <div v-else class="text-2xl w-full font-bold text-center mt-10">
@@ -82,12 +82,12 @@
 
         <!-- Informations personnelles -->
         <div class="flex mt-3 mb-3 flex-wrap"  v-if="choice == 'me'">
-            <InfoPerso :nom="authStore.user.nomclient" :prenom="authStore.user.prenomclient" :email="authStore.user.emailclient" :dateDeNaissance="authStore.user.datenaissance" :sexe="authStore.user.sexe" :id="authStore.user.idclient" />
+            <InfoPerso v-on:loading="(loadingStatus) => loading = loadingStatus" :token="authStore.token" :nom="authStore.user.nomClient" :prenom="authStore.user.prenomClient" :email="authStore.user.emailClient" :dateDeNaissance="authStore.user.dateNaissanceClient" :sexe="authStore.user.sexeClient" :id="authStore.user.idClient" :motDePasse="authStore.user.motDePasse" />
         </div>
 
         <!-- Mes commandes -->
         <div class="mt-3 mb-3"  v-if="choice == 'commandes'">
-            <div v-if="authStore.user.commandes.length > 0" class="">
+            <div v-if="userData.commandeClientNavigation.length > 0" class="">
                 <div class="flex gap-6">
                     <a v-if="commande_terminee.length > 0 && commande_en_cours.length > 0" href="#commande-terminee" class="flex flex-1 justify-center hover:bg-transparent cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 px-5 py-3 bg-rose border-rose border-2 font-semibold">
                         Commandes terminées
@@ -122,7 +122,7 @@
 
         <!-- Mes réservations -->
         <div class="flex mt-3 mb-3 flex-wrap"  v-if="choice == 'reservations'">
-            <div class="flex mt-3 mb-3 flex-wrap" v-if="authStore.user.commandes.length > 0">
+            <div class="flex mt-3 mb-3 flex-wrap" v-if="userData.commandeClientNavigation.length > 0">
                 <Reservation class="px-3 xl:w-1/3 lg:w-1/2 w-full py-3" v-for="reservation in reservations" :coupon="reservation.cadeau ? reservation.cadeau : null" :idclient="authStore.user.idclient" :key="reservation.refcommande + reservation.idsejour" :refcommande="reservation.refcommande" :datedebutreservation="reservation.datedebutreservation" :estcadeau="reservation.estcadeau" :idsejour="reservation.idsejour" :nbadulte="reservation.nbadulte" :nbchambre="reservation.nbchambre" :nbenfant="reservation.nbenfant"/>
             </div>
             <div v-else class="text-2xl w-full font-bold text-center mt-10">
@@ -132,7 +132,7 @@
 
         <!-- Mes paiements -->
         <div class="flex mt-3 mb-3 flex-wrap"  v-if="choice == 'paiements'">
-            <div v-if="authStore.user.paiements > 0">
+            <div v-if="userData.paiementClientNavigation.length > 0">
                 <Paiement    />
             </div>
             <div v-else class="text-2xl w-full font-bold text-center mt-10">
@@ -152,7 +152,12 @@
                 Vous n'avez aucun avis.
             </div>
             <!-- <AddAvis idavis="3" /> -->
-        </div>        
+        </div>      
+        
+        <!-- Loading -->
+        <div v-if="loading" id="loading" class="fixed z-50 w-screen h-screen backdrop-blur top-0 right-0">
+            <LoadComponent />
+        </div>
     </div>    
 </div>
 
@@ -179,9 +184,11 @@ import SingleCardSejour from '../components/SingleCardSejour.vue';
 import axios from 'axios';
 import config from '../utils/config';
 import AddAvis from '../components/AddAvis.vue';
-
 import { useLikesStore } from '../stores/likes';
+
 const likesStore = useLikesStore();
+
+const loading = ref(false);
 
 const authStore: any = useAuthStore();
 const choice: any = ref("me");
@@ -193,10 +200,29 @@ const reservations: any = ref([]);
 const commande_terminee: any = ref([]);
 const commande_en_cours: any = ref([]);
 
+// read get params from url
+const urlParams = new URLSearchParams(window.location.search);
+const choiceUrl = urlParams.get('choice');
+if (choiceUrl) {
+    choice.value = choiceUrl;
+}
+
+const userData: any = ref([]);
+
 onMounted(async () => {
     await authStore.getUser();
-    axios.get('/api/avis?client=' + authStore.user.idclient).then((response) => {
-        avis.value = response.data['data'];
+    // await axios.get('/api/avis?client=' + authStore.user.idclient).then((response) => {
+    //     avis.value = response.data['data'];
+    // });
+
+    await axios.get('/api/User/GetUserData?id=' + authStore.user.idClient, {
+        headers: {
+            'Authorization': 'Bearer ' + authStore.token
+        }
+    })
+    .then((response) => {
+        console.log(response.data);
+        userData.value = response.data;
     });
 
     authStore.user.commandes.forEach((commande: any) => {
@@ -232,5 +258,7 @@ const estPassee = (reservations) => {
 </script>
 
 <style scoped>
-
+#loading{
+    background: rgba(53, 10, 6, 0.5);
+}
 </style>

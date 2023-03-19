@@ -73,16 +73,15 @@ async function pay() {
     
   try {
     const response = await axios.post("/payment/checkout", {
+      reservations: [],
       articles: items,
-      save_crendentials: savePaiment.value,
-      email: authStore.user?.emailclient,
-      name: authStore.user?.nomclient + " " + authStore.user?.prenomclient,
-      idadresse: selectedAddress.value,
-      idclient: authStore.user?.idclient,
-      details: [],
-      notecommande: note.value,
-      cheque_cadeau: true,
-      estcadeau: true,
+      saveCredentials: savePaiment.value,
+      idAdresse: selectedAddress.value,
+      estCheque: true,
+      emailClient: authStore.user.emailClient,
+      noteCommande: note.value,
+      idClient: authStore.user.idClient,
+      name: authStore.user.nomClient + " " + authStore.user.prenomClient,
     });
     const checkoutURL = response.data.checkoutURL;
     // Redirect the user to the Stripe Checkout page

@@ -25,6 +25,8 @@ const closeAddAdress: any = ref(true);
 const promotion = ref(0);
 const couponError = ref([false, ""]);
 
+const adresses: any = ref([]);
+
 watch(note, (val) => {
   if (val.length < 50 && val.length > 0) {
     noteError.value = true;
@@ -37,11 +39,23 @@ watch(note, (val) => {
 
 onMounted(() => {
   loading.value = true;
+  axios
+    .get(
+      "/api/User/GetUserById/" + authStore.user?.idClient + "?withAdresse=true",
+      {
+        headers: {
+          Authorization: "Bearer " + authStore.token,
+        },
+      }
+    )
+    .then((response) => {
+      adresses.value = response.data.adresseClientNavigation;
+    });
   panierStore.sejours.forEach((element) => {
     if (element.idsejour) {
       prixTotal.value += element.prixtotal;
       axios
-        .get("/api/sejour/" + element.idsejour)
+        .get("/api/Sejour/" + element.idsejour)
         .then((response) => {
           articleDetails.push({
             idsejour: element.idsejour,
@@ -52,16 +66,15 @@ onMounted(() => {
             estcadeau: false,
           });
           items.push({
-            name: response.data["data"].titresejour,
-            description: response.data["data"].descriptionsejour,
-            unit_amount: element.prixtotal * 100,
-            currency: "EUR",
-            image: response.data["data"].photosejour,
+            name: response.data.titreSejour,
+            description: response.data.descriptionSejour,
+            price: element.prixtotal * 100,
+            image: response.data.photoSejour,
             quantity: 1,
           });
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     }
   });
@@ -93,17 +106,17 @@ const confirmPay = () => {
 
 async function pay() {
   try {
-    const response = await axios.post("/payment/checkout", {
+    const response = await axios.post("/api/Payment/checkout", {
+      reservations: articleDetails,
       articles: items,
-      save_crendentials: savePaiment.value,
-      email: authStore.user?.emailclient,
-      name: authStore.user?.nomclient + " " + authStore.user?.prenomclient,
-      idadresse: selectedAddress.value,
-      idclient: authStore.user?.idclient,
-      details: articleDetails,
-      notecommande: note.value,
-      cheque_cadeau: false,
+      saveCredentials: savePaiment.value,
+      idAdresse: selectedAddress.value,
+      estCheque: false,
+      NomClient: authStore.user.nomClient + " " + authStore.user.prenomClient,
+      emailClient: authStore.user.emailClient,
+      noteCommande: note.value,
       coupon: coupon.value,
+      idClient: authStore.user.idClient,
     });
     const checkoutURL = response.data.checkoutURL;
     // Redirect the user to the Stripe Checkout page
@@ -115,62 +128,78 @@ async function pay() {
 }
 
 const couponCheck = async () => {
-  await axios.post("/api/coupon/check", { coupon: coupon.value }).then((response) => {
-    if (response.data.amount) {
-      prixTotal.value - response.data.amount < 0 ? (couponError.value = [true, "Le coupon ne peut pas être utilisé partiellement !"]) : (couponError.value = [false, ""], promotion.value = response.data.amount);
-    } else if(response.data.reservations) {
-      console.log(response.data.reservations);
-    } else {
-      couponError.value = [true, "Le coupon n'est pas valide !"];
-    }
-  });
+  console.log(coupon.value);
+  await axios
+    .get("/api/BonReduction/check?code=" + coupon.value, {
+      headers: {
+        Authorization: "Bearer " + authStore.token,
+      },
+    })
+    .then((response) => {
+      if (response.data.amount) {
+        prixTotal.value - response.data.amount < 0
+          ? (couponError.value = [
+              true,
+              "Le coupon ne peut pas être utilisé partiellement !",
+            ])
+          : ((couponError.value = [false, ""]),
+            (promotion.value = response.data.amount));
+      } else if (response.data.reservations) {
+        // console.log(response.data.reservations);
+      } else {
+        couponError.value = [true, "Le coupon n'est pas valide !"];
+      }
+    });
 };
-
 </script>
 
 <template>
   <div v-if="authStore.user">
     <Progress :step="3"></Progress>
-    <AddAdressForm v-if="!closeAddAdress" v-on:toClose="(i) => closeAddAdress = i" :idclient="authStore.user.idclient" />
+    <AddAdressForm
+      v-if="!closeAddAdress"
+      v-on:toClose="(i) => (closeAddAdress = i)"
+      :idclient="authStore.user.idClient"
+    />
     <div class="flex">
       <div class="w-1/2 px-3">
         <h1 class="text-3xl mb-6">Adresse de facturation</h1>
         <div class="flex flex-wrap">
           <div
-            v-if="authStore.user.adresses && authStore.user.adresses.length > 0"
+            v-if="adresses && adresses.length > 0"
             class="w-1/2 h-full justify-between flex-1 px-3 flex flex-col gap-6"
-            v-for="adresse in authStore.user.adresses"
-            :key="adresse.idadresse"
+            v-for="adresse in adresses"
+            :key="adresse.idAdresse"
           >
             <AddresseVue
               :class="
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? 'bg-rose'
                   : 'bg-transparent'
               "
               :canEdit="false"
-              :id="adresse.idadresse"
-              :libelleAdress="adresse.libelleadresse"
-              :rueAdresse="adresse.rueadresse"
-              :villeAdresse="adresse.villeadresse"
-              :codePostalAdresse="adresse.cpadresse"
-              :paysAdresse="adresse.pays"
+              :id="adresse.idAdresse"
+              :libelleAdress="adresse.libelleAdresse"
+              :rueAdresse="adresse.rueAdresse"
+              :villeAdresse="adresse.villeAdresse"
+              :codePostalAdresse="adresse.codePostalAdresse"
+              :paysAdresse="adresse.paysAdresse"
             />
             <button
               @click="
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? (selectedAddress = null)
-                  : (selectedAddress = adresse.idadresse)
+                  : (selectedAddress = adresse.idAdresse)
               "
               :class="
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? 'bg-rose'
                   : 'bg-transparent'
               "
               class="flex w-full text-xl justify-center cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 p-3 border-rose border-2 font-semibold"
             >
               <svg
-                v-if="selectedAddress != adresse.idadresse"
+                v-if="selectedAddress != adresse.idAdresse"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -200,7 +229,7 @@ const couponCheck = async () => {
                 />
               </svg>
               {{
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? "Adresse sélectionnée"
                   : "Choisir cette adresse"
               }}
@@ -280,7 +309,11 @@ const couponCheck = async () => {
           </label>
         </div>
         <div>
-          <div v-if="couponError[0]" class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700" role="alert">
+          <div
+            v-if="couponError[0]"
+            class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+            role="alert"
+          >
             {{ couponError[1] }}
           </div>
           <label for="coupon" class="mb-3">Ajouter un coupon</label>
@@ -336,9 +369,8 @@ const couponCheck = async () => {
             {{ panierStore.total }} article<span v-if="panierStore.total > 1"
               >s</span
             >
-            pour un total de {{ prixTotal - promotion }} € {{ promotion > 0
-              ? "(-" + promotion + "€)"
-              : "" }}
+            pour un total de {{ prixTotal - promotion }} €
+            {{ promotion > 0 ? "(-" + promotion + "€)" : "" }}
           </h1>
         </div>
         <button

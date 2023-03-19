@@ -97,7 +97,13 @@
             v-if="panierStore"
             class="flex relative cursor-pointer px-2 py-3"
           >
-            <ion-icon class="text-3xl" name="cart-outline"></ion-icon>
+            <lord-icon
+              src="https://cdn.lordicon.com/cllunfud.json"
+              trigger="hover"
+              colors="outline:#ffffff,primary:#b4b4b4,secondary:#cb7169"
+              style="width: 40px; height: 40px"
+            >
+            </lord-icon>
             <span
               class="inline-flex md:whitespace-nowrap absolute top-0 right-0 items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-rose rounded-full"
               >{{ panierStore.total }}</span
@@ -108,7 +114,13 @@
         <!-- fav icon with buble, only displayed if the user is connected -->
         <RouterLink v-if="authStore.user && likesStore" to="/favoris">
           <div class="md:flex hidden cursor-pointer relative px-2 py-3">
-            <ion-icon class="text-3xl" name="heart"></ion-icon>
+            <lord-icon
+              src="https://cdn.lordicon.com/hqrgkqvs.json"
+              trigger="hover"
+              colors="outline:#ffffff,primary:#cb7169,secondary:#ebe6ef"
+              style="width: 40px; height: 40px"
+            >
+            </lord-icon>
             <span
               class="inline-flex absolute top-0 right-0 items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-rose rounded-full"
               >{{ likesStore.total }}</span
