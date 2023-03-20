@@ -300,7 +300,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 
   if(to.path.includes('admin') && isAuthenticated) {
-    isAdmin(useAuthStore().user.emailclient) ? next() : next({ path: '/' });
+    useAuthStore().isAdmin ? next() : next({ path: '/' });
   } else if(to.path.includes('admin')) {
     next({ path: '/' });
   } else if (to.meta.requiresAuth && !isAuthenticated()) {

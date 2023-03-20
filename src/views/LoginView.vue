@@ -66,8 +66,6 @@
 
                 <div v-else class="flex flex-col gap-4">
 
-                    <input type="text" v-model="abeille" name="email" class="hidden">
-
                     <div v-if="error" class=" bg-red-600 flex items-center text-white text-xl text-center p-3 rounded-xl">
                         <ion-icon class="text-5xl font-bold" name="alert-circle-outline"></ion-icon>
                         Vous devez d'abord créer un compte avant de vous connecter avec {{ socialProvider }} !
@@ -113,6 +111,8 @@
                             <p class="text-red-500">{{ authStore.errors.emailclient[0] }}</p>
                         </div>
                     </div>
+
+                    <input type="text" v-model="abeille" name="email" class="hidden">
 
                     <div class="flex lg:flex-row flex-col gap-2 w-full">
                         <div class="flex w-full flex-col gap-2">
@@ -174,6 +174,7 @@
                     <button @click="login ? (!block ? authStore.login(loginForm.email, loginForm.password): null)
                      : (!block ? authStore.register(registerForm.lastname, registerForm.firstname, registerForm.email, registerForm.birthdate, registerForm.gender, registerForm.password, registerForm.passwordConfirm): null)"
                         class="bg-rose w-fit lg:px-12 px-2 rounded-full hover:-translate-y-1 text-white p-2">{{ login ? "Se connecter" : "S'inscrire" }}</button>
+                        {{block}} {{abeille}}
                 </div>
 
                 <div v-if="login" class="flex items-center flex-col gap-2">
@@ -218,8 +219,8 @@ const abeille = ref('');
 const block = ref(false);
 
 // watch abeille value to change the background
-watch(abeille, (abeille) => {
-    if(abeille.length > 0) {
+watch(abeille, (abeilleChangee) => {
+    if(abeilleChangee.length > 0) {
         block.value = true;
     }
 })
