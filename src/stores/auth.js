@@ -18,6 +18,7 @@ export const useAuthStore = defineStore("auth", {
     token: (state) => state.authToken,
     errors: (state) => state.authErrors,
     isAuthenticated: (state) => state.user !== null,
+    isAdmin: (state) => state.user !== null && state.user.userRole === "Admin",
   },
   actions: {
     async login(email, password) {
@@ -51,7 +52,6 @@ export const useAuthStore = defineStore("auth", {
       motdepasse_confirmation
     ) {
       this.authError = [];
-      await this.getToken();
       try {
         const response = await axios.post("/api/Authenticate/register", {
           email: emailclient,
@@ -65,9 +65,7 @@ export const useAuthStore = defineStore("auth", {
         this.router.push("/verif-mail");
         this.authUser = response.data.userDetails;
       } catch (error) {
-        if (error.response.status === 422) {
-          this.authErrors = error.response.data.errors;
-        }
+        this.authErrors = error.response.data.errors;
       }
     },
     async forgotPassword(email) {
