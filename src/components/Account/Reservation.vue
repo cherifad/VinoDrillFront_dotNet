@@ -21,7 +21,7 @@
                         <div class="flex mb-2">
                             <div class=" w-10 border mt-2"></div>
                         </div>
-                        <p class="font-bold">{{ datedebutreservation }}</p>
+                        <p class="font-bold">{{ toReadableDate(datedebutreservation) }}</p>
                     </div>
                 </div>       
                 
@@ -31,7 +31,7 @@
                     <p id="passenger" class="md:text-2xl font-semibold text-center">Chambre(s)<br>{{ nbchambre }}</p>
                 </div>
                 
-                <p v-if="sejour" class="lg:text-2xl font-bold mb-3">Sejour : {{ sejour.titresejour }}</p>
+                <p v-if="sejour" class="lg:text-2xl font-bold mb-3">Sejour : {{ sejour.titreSejour }}</p>
                 <div v-if="coupon" class="mb-3 flex items-center gap-3 justify-between" :class="coupon.estvalide ? '' : 'opacity-60'">
                     <div class="flex gap-3">
                         <ion-icon name="ticket-outline" class="text-3xl"></ion-icon>
@@ -52,7 +52,7 @@
             <ion-icon name="pencil"></ion-icon>
             Rédiger un avis
         </div>
-        <AddAvis v-if="addAvis" :idsejour="sejour.idsejour" :idclient="idclient"/>
+        <AddAvis v-if="addAvis" :idsejour="sejour.idSejour" :idclient="idclient"/>
         <SingleComment v-if="avisClient" v-for="avi in avisClient" :estreponse="false" :reponse="null" :key="avi.idavis" :id="avi.idavis" :note="avi.note" :date="avi.dateavis" :title="avi.titreavis" :comment="avi.commentaire" />
     </div>
     <div v-else>
@@ -119,19 +119,19 @@ const checkCanAddAvis = () => {
 
 onMounted(async () => {
     loading.value = true;
-    await axios.get('/api/sejour/' + props.idsejour)
+    await axios.get('/api/Sejour/' + props.idsejour)
         .then((response) => {
-            sejour.value = response.data['data'];
+            sejour.value = response.data;
         })
         .catch((error) => {
             console.log(error);
         });
-    await axios.get('/api/avis?client=' + props.idclient + '&sejour=' + props.idsejour)
+    await axios.get('/api/Avi?idClient=' + props.idclient + '&idSejour=' + props.idsejour)
         .then((response) => {
-            if (response.data['data'].length === 0 && dateReservation < today) {
+            if (response.data.length === 0 && dateReservation < today) {
                 cannAddAvis.value = true;
             } else {
-                avisClient.value = response.data['data'];
+                avisClient.value = response.data;
             }
         })
         .then(() => {

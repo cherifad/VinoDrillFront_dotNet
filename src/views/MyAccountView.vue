@@ -105,13 +105,13 @@
                 <div v-if="commande_en_cours.length > 0" id="commande-encours" class="flex pt-6 mt-3 mb-3 flex-wrap">                    
                     <h1 class="xl:w-1/3 lg:w-1/2 w-full text-2xl flex items-center justify-center px-3 py-3 border-b-8 border-r-8 border-t-2 border-l-2 border-rose rounded-lg">Commandes en cours</h1>
                     <div class="xl:w-1/3 lg:w-1/2 w-full px-3 py-3" v-for="commande in commande_en_cours" :key="commande.refcommande">
-                        <Commande :estPassee="estPassee(commande.reservations)" :cheminFacture="commande.cheminfacture" :estCheque="commande.estcheque" :refcommande="commande.refcommande" :datecommande="commande.datecommande" :message="commande.message" :prixcommande="commande.prixcommande" :quantite="commande.quantite" :idclient="commande.idclient" :libellepaiement ="commande.paiement.libellepaiement"/>
+                        <Commande :estPassee="estPassee(commande.reservationCommandeNavigation)" :cheminFacture="commande.cheminFacture" :estCheque="commande.estCheque" :refcommande="commande.refCommande" :datecommande="commande.dateCommande" :message="commande.message" :prixcommande="commande.prixCommande" :quantite="commande.quantite" :idclient="commande.idClient" :libellepaiement ="commande.paiementCommandeNavigation.libellePaiement"/>
                     </div>
                 </div>
                 <div v-if="commande_terminee.length > 0" id="commande-terminee" class="flex pt-6 mt-3 mb-3 flex-wrap">                    
                     <h1 class="xl:w-1/3 lg:w-1/2 w-full text-2xl flex items-center justify-center px-3 py-3 border-b-8 border-r-8 border-t-2 border-l-2 border-rose rounded-lg">Commandes Terminée</h1>
                     <div class="xl:w-1/3 lg:w-1/2 w-full px-3 py-3" v-for="commande in commande_terminee" :key="commande.refcommande">
-                        <Commande :estPassee="estPassee(commande.reservations)" :cheminFacture="commande.cheminfacture" :estCheque="commande.estcheque" :refcommande="commande.refcommande" :datecommande="commande.datecommande" :message="commande.message" :prixcommande="commande.prixcommande" :quantite="commande.quantite" :idclient="commande.idclient" :libellepaiement ="commande.paiement.libellepaiement"/>
+                        <Commande :estPassee="estPassee(commande.reservationCommandeNavigation)" :cheminFacture="commande.cheminFacture" :estCheque="commande.estCheque" :refcommande="commande.refCommande" :datecommande="commande.dateCommande" :message="commande.message" :prixcommande="commande.prixCommande" :quantite="commande.quantite" :idclient="commande.idClient" :libellepaiement ="commande.paiementCommandeNavigation.libellePaiement"/>
                     </div>
                 </div>
             </div>
@@ -122,8 +122,8 @@
 
         <!-- Mes réservations -->
         <div class="flex mt-3 mb-3 flex-wrap"  v-if="choice == 'reservations'">
-            <div class="flex mt-3 mb-3 flex-wrap" v-if="userData.commandeClientNavigation.length > 0">
-                <Reservation class="px-3 xl:w-1/3 lg:w-1/2 w-full py-3" v-for="reservation in reservations" :coupon="reservation.cadeau ? reservation.cadeau : null" :idclient="authStore.user.idclient" :key="reservation.refcommande + reservation.idsejour" :refcommande="reservation.refcommande" :datedebutreservation="reservation.datedebutreservation" :estcadeau="reservation.estcadeau" :idsejour="reservation.idsejour" :nbadulte="reservation.nbadulte" :nbchambre="reservation.nbchambre" :nbenfant="reservation.nbenfant"/>
+            <div class="flex w-full mt-3 mb-3 flex-wrap" v-if="userData.commandeClientNavigation.length > 0">
+                <Reservation class="px-3 xl:w-1/3 lg:w-1/2 w-full py-3" v-for="reservation in reservations" :coupon="reservation.estCadeau ? reservation.estCadeau : null" :idclient="authStore.user.idClient" :key="reservation.refCommande + reservation.idSejour" :refcommande="reservation.refCommande" :datedebutreservation="reservation.dateDebutReservation" :estcadeau="reservation.estCadeau" :idsejour="reservation.idSejour" :nbadulte="reservation.nbAdulte" :nbchambre="reservation.nbChambre" :nbenfant="reservation.nbEnfant"/>
             </div>
             <div v-else class="text-2xl w-full font-bold text-center mt-10">
                 Vous n'avez aucune réservation.
@@ -223,21 +223,21 @@ onMounted(async () => {
     .then((response) => {
         console.log(response.data);
         userData.value = response.data;
-    });
-
-    authStore.user.commandes.forEach((commande: any) => {
-        commande.reservations.forEach((single: any) => {
-            reservations.value.push(single);
+        userData.value.commandeClientNavigation.forEach((commande: any) => {
+            commande.reservationCommandeNavigation.forEach((single: any) => {
+                reservations.value.push(single);
+            });
+        });
+        const commandes = userData.value.commandeClientNavigation;
+        commandes.forEach((commande: any) => {
+            if(estPassee(commande.reservationCommandeNavigation)) {
+                commande_terminee.value.push(commande);
+            } else {
+                commande_en_cours.value.push(commande);
+            }
         });
     });
-    const commandes = authStore.user.commandes;
-    commandes.forEach((commande: any) => {
-        if(estPassee(commande.reservations)) {
-            commande_terminee.value.push(commande);
-        } else {
-            commande_en_cours.value.push(commande);
-        }
-    });
+
 });
 
 const setCloseAddAdress = (i) => {
@@ -248,7 +248,7 @@ const estPassee = (reservations) => {
     var response = true;
     const dateActuelle = new Date();
     reservations.forEach((single: any) => {
-        const dateDebut = new Date(single.datedebutreservation);
+        const dateDebut = new Date(single.dateDebutReservation);
         if(dateDebut > dateActuelle) {
             response = false;
         }
