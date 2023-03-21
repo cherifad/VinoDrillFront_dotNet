@@ -142,7 +142,7 @@
                                 <ion-icon @click="show = !show" v-if="!show"  class="text-3xl cursor-pointer bottom-auto text-rose" name="eye-outline"></ion-icon>
                                 <ion-icon @click="show = !show" v-else class="text-3xl cursor-pointer bottom-auto text-rose" name="eye-off-outline"></ion-icon>
                             </div>
-                            <input v-model="registerForm.password" :type="show ? 'text': 'password'" id="password"
+                            <input v-model="registerForm.password" :type="show ? 'text': 'password'" id="password" name="password"
                                 class="rounded-full w-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 placeholder="Mot de passe">
                         </div>
@@ -157,7 +157,7 @@
                                 <ion-icon @click="show = !show" v-if="!show"  class="text-3xl cursor-pointer bottom-auto text-rose" name="eye-outline"></ion-icon>
                                 <ion-icon @click="show = !show" v-else class="text-3xl cursor-pointer bottom-auto text-rose" name="eye-off-outline"></ion-icon>
                             </div>
-                            <input v-model="registerForm.passwordConfirm" :type="show ? 'text': 'password'" id="password"
+                            <input v-model="registerForm.passwordConfirm" :type="show ? 'text': 'password'" id="password" name="passwordConfirm"
                                 class="rounded-full w-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 placeholder="Mot de passe">
                         </div>

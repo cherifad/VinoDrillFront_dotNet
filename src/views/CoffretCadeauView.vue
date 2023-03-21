@@ -27,7 +27,7 @@
         placeholder="Utiliser un code cadeau"
         v-model="coupon"
       />
-      <button @click="checkCoupon" class="bg-rose flex items-center justify-center hover:bg-transparent w-1/5 text-white border-2 border-rose font-bold h-12 rounded">
+      <button id="button1CadeauPasser" @click="checkCoupon" class="bg-rose flex items-center justify-center hover:bg-transparent w-1/5 text-white border-2 border-rose font-bold h-12 rounded">
         <span class="hidden lg:block">Passer à l'étape suivante</span>
         <ion-icon name="arrow-forward-outline" class="block lg:hidden"></ion-icon>
       </button>
@@ -43,7 +43,7 @@
           <div class="flex flex-col md:flex-row mt-6 justify-evenly gap-6">
             <div class="text-center flex flex-col items-center text-lg">
               Déjà fait votre choix ? <br />
-              <button @click="checkCheckout" class="bg-rose mt-3 hover:bg-transparent w-fit text-white border-2 border-rose font-bold block py-3 px-10 rounded">
+              <button id="button2CadeauPasser" @click="checkCheckout" class="bg-rose mt-3 hover:bg-transparent w-fit text-white border-2 border-rose font-bold block py-3 px-10 rounded">
                 Passer à l'étape suivante
               </button>
             </div>
@@ -65,7 +65,7 @@
               <div v-for="key in Object.keys(config.cheques)" :class="selected == key ? 'opacity-100 bg-rose': 'opacity-75 bg-transparent'" class="p-3 text-sm font-bold border-2 select-none cursor-pointer border-rose rounded-md flex-1" @click="selected = key">{{ config.cheques[key] }}€</div>
             </div>
             <div class="text-center flex justify-center md:justify-end text-lg">
-              <button @click="offriCheque"  class="bg-rose mt-3 hover:bg-transparent w-fit text-white border-2 border-rose font-bold block py-3 px-10 rounded">
+              <button id="button3CadeauPasser" @click="offriCheque"  class="bg-rose mt-3 hover:bg-transparent w-fit text-white border-2 border-rose font-bold block py-3 px-10 rounded">
                 Passer à l'étape suivante
               </button>
             </div>
