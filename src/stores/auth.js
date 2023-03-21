@@ -97,7 +97,7 @@ export const useAuthStore = defineStore("auth", {
       if (!(await this.isValid())) {
         this.authUser = null;
         this.authToken = "";
-        this.router.push("/connexion");
+        //this.router.push("/connexion");
         return;
       }
     },
