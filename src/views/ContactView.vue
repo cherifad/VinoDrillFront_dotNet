@@ -10,7 +10,7 @@
             <div>
                 <div class="mt-4">
                     <h3 class="oui">Objet</h3>
-                    <select v-model="form.object" class="rounded-full p-2 w-full champContact mt-2 border-2 text-gray-400 border-rose focus:border-rouge outline-none" name="object" id="object" required>
+                    <select v-model="form.object" class="rounded-full p-2 w-full champContact mt-2 border-2 text-rouge border-rose focus:border-rouge outline-none" name="object" id="object" required>
                         <option value="" disabled selected>Selectionnez un destinataire</option>
                         <option value="service">Contacter le Service Client</option>
                         <option value="dpo">Contacter le DPO</option>
@@ -55,13 +55,13 @@
             <div>
                 <div class="mt-2">
                     <label class="inline-flex items-center ">
-                    <input v-model="form.check" true-value="true" false-value="false" type="checkbox" class="mt-4 w-6 h-6 check"  />
+                    <input v-model="checked" true-value="true" false-value="false" type="checkbox" class="mt-4 w-6 h-6 check"  />
                     <span class="ml-2 mt-4">J’ai pris connaissance de la <span class="text-sky-500 underline "><RouterLink to="/politique-de-confidentialite">Politique de confidentialité</RouterLink></span> et j'autorise VinoDrill à m'envoyer des informations.</span>{{form.check}}
                     </label>
                 </div>
             </div>
             <div class="mt-4 justify-center flex">
-                <button @click="toShow = true; form.lastname && form.firstname && form.object && form.mail && form.message && form.check ? test() : bad();" class="bg-rose w-fit px-12 rounded-full text-white p-2">Envoyer</button>
+                <button @click="toShow = true; form.lastname && form.firstname && form.object && form.mail && form.message && checked ? goodValidation() : badValidation();" class="bg-rose w-fit px-12 rounded-full text-white p-2">Envoyer</button>
             </div>
         </div>
         <div v-if="toShow && isValid" class="h-screen w-screen fixed left-0 top-0 flex justify-center items-center">
@@ -92,6 +92,8 @@ import { onMounted, ref } from 'vue';
 
 var isValid = ref(false)
 var toShow = ref(false)
+var checked = ref(false)
+var file = ref(null)
 
 const form = ref({
     object: '',
@@ -100,16 +102,24 @@ const form = ref({
     mail: '',
     code: '',
     message: '',
-    file: '',
-    check: false,
 })
 
-function test(){
-    console.log("oui");
+function goodValidation(){
+    console.log(file);
+    console.log(file.value);
+    isValid.value = true;
+    form.value.object = '';
+    form.value.lastname = '';
+    form.value.firstname = '';
+    form.value.mail = '';
+    form.value.code = '';
+    form.value.message = '';
+    file.value = null;
+    checked.value = false;
 }
 
-function bad(){
-    console.log("non");
+function badValidation(){
+    isValid.value = false;
 }
 
 </script>
