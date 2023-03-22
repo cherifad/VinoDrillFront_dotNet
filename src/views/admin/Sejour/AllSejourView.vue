@@ -10,13 +10,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="sejour in sejours" :key="sejour.idsejour">
-                    <td>{{ sejour.idsejour }}</td>
-                    <td>{{ sejour.titresejour }}</td>
-                    <td>{{ sejour.prixsejour }}€</td>
+                <tr v-for="sejour in sejours" :key="sejour.idSejour">
+                    <td>{{ sejour.idSejour }}</td>
+                    <td>{{ sejour.titreSejour }}</td>
+                    <td>{{ sejour.prixSejour }}€</td>
                     <td>
                         <div class="flex gap-3 justify-center">
-                            <router-link :to="{ name: 'AdminSejourModif', params: { id: sejour.idsejour } }">
+                            <router-link :to="{ name: 'AdminSejourModif', params: { id: sejour.idSejour } }">
                                 <div class="flex">
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     Modifier
@@ -30,7 +30,7 @@
                                 </button>
                                 <Tooltip>Cliquez pour supprimer le séjour existant pour plus d'info : <span class="text-sky-500 underline "><RouterLink class="underline underline-offset-2" to="/admin/aide">Aide</RouterLink></span></Tooltip>
                             </div>
-                            <router-link :to="{ name: 'AdminSejourAvis', params: { id: sejour.idsejour } }">
+                            <router-link :to="{ name: 'AdminSejourAvis', params: { id: sejour.idSejour } }">
                                 <div class="flex">
                                     <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                     Voir les avis
@@ -38,7 +38,7 @@
                                     <Tooltip>Cliquez pour tous les avis du existant pour plus d'info : <span class="text-sky-500 underline "><RouterLink class="underline underline-offset-2" to="/admin/aide">Aide</RouterLink></span></Tooltip>
                                 </div>
                             </router-link>
-                            <button @click="selectedIdPromo = sejour.idsejour, showPromoPopup = true, oldPrice = getSejourById(selectedIdPromo).prixsejour" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <button @click="selectedIdPromo = sejour.idSejour, showPromoPopup = true, oldPrice = getSejourById(selectedIdPromo).prixSejour" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 Mettre les promotions
                             </button>
                             <Tooltip class="text-left">Cliquez pour mettre en promotion ce séjour.</Tooltip>
@@ -111,10 +111,10 @@ const checkPromoPercent = () => {
     }
 }
 
-const setPromotion = async (idsejour: number) => {
-    const temp_sejour = getSejourById(idsejour);
-    temp_sejour.prixsejour = oldPrice.value - (oldPrice.value * promoPercent.value / 100);
-    axios.put(`/api/sejour/${idsejour}`, {
+const setPromotion = async (idSejour: number) => {
+    const temp_sejour = getSejourById(idSejour);
+    temp_sejour.prixSejour = oldPrice.value - (oldPrice.value * promoPercent.value / 100);
+    axios.put(`/api/Sejour/${idSejour}`, {
         ...temp_sejour
     })
 }
@@ -130,8 +130,8 @@ const submitHandler = () => {
 
 const getSejours = async () => {
     const response = await apis.getSejours();
-    sejours.value = response.data.data;
-    sejours.value.sort((a: any, b: any) => a.idsejour - b.idsejour);
+    sejours.value = response.data;
+    sejours.value.sort((a: any, b: any) => a.idSejour - b.idSejour);
 }
 
 const fakeDelete = () => {
@@ -141,7 +141,7 @@ const fakeDelete = () => {
 
 // get sejour from sejours array by id
 const getSejourById = (id: number) => {
-    return sejours.value.find((sejour: any) => sejour.idsejour === id);
+    return sejours.value.find((sejour: any) => sejour.idSejour === id);
 }
 
 onMounted(getSejours);
