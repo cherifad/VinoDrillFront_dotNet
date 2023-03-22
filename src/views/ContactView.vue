@@ -79,7 +79,7 @@
                 <div class="text-center" >
                     <p class="text-xl mt-1 mb-2">Message Erreur</p>
                     <p>Votre message possède une erreur ! <br>
-                    Veuillez remplir les champs rouge et/ou cocher la case d'acceptation de notre politique.</p>
+                    Veuillez remplir les champs obligatoires et/ou cocher la case d'acceptation de notre politique.</p>
                     <button @click="toShow = false" class="bg-white text-black font-semibold px-4 rounded-full mb-1 mt-2" type="button">OK</button>
                 </div>
             </div>

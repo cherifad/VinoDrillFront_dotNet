@@ -56,7 +56,7 @@
       </div>
 
       <div class="flex justify-center">
-        <button id="button" class=" py-3 px-8 rounded" title="Demander un devis">
+        <button id="button" class=" py-3 px-8 rounded-full" title="Demander un devis">
           <RouterLink class="text-2xl " to="/contact">Demander un devis</RouterLink>
         </button>
       </div>
