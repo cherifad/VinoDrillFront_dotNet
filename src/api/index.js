@@ -10,7 +10,7 @@ const api = axios.create({
 
 const getSejours = () => api.get(`/Sejour`);
 const getSejourById = id => api.get(`/Sejour/${id}`);
-const getSejourWithHebergement = id => api.get(`/Sejour/${id}?hebergement=true`);
+const getSejourWithHebergement = id => api.get(`/Sejour/${id}?includeHebergement=true`);
 const updateSejourById = (id, payload) => api.put(`/Sejour/${id}`, payload, {
     headers: {
         'Authorization': 'Bearer ' + authStore.token
@@ -40,7 +40,7 @@ const newActivite = payload => api.post(`/Activite`, payload);
 const getSociete = () => api.get(`/Societe`);
 const getSocieteById = id => api.get(`/Societe/${id}`);
 
-const getReviews = (idsejour) => api.get(`/Avis?sejour=${idsejour}`);
+const getReviews = (idsejour) => api.get(`/Avi?idSejour=${idsejour}`);
 
 const uploadImage = (payload) => api.post(`/Upload`, payload);
 

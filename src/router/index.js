@@ -300,9 +300,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 
   if(to.path.includes('admin') && isAuthenticated) {
-    useAuthStore().isAdmin ? next() : next({ path: '/' });
+    useAuthStore().isAdmin ? next() : next({ path: '/connexion' });
   } else if(to.path.includes('admin')) {
-    next({ path: '/' });
+    next({ path: '/connexion' });
   } else if (to.meta.requiresAuth && !isAuthenticated()) {
     next({ path: '/connexion' });
   } else if ((to.name == "Connexion") && isAuthenticated()) {
