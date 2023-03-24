@@ -76,7 +76,7 @@
             </div>
         <div v-if="reviews.length > 0" id="avis" class="flex flex-col gap-3 mb-8">
             <h1 class="mt-5 lg:text-3xl text-xl md:text-2xl font-bold">Voir les {{ reviews.length }} avis</h1>
-            <SingleComment v-for="review in reviews" :estreponse="review.estReponse" :reponse="review.reponse_admin" :key="review.idAvis" :id="review.idAvis" :note="review.note" :comment="review.commentaire" :date="review.dateAvis" :title="review.titreAvis"/>
+            <SingleComment v-for="review in reviews" :estreponse="review.estReponse" :idSejour="review.idSejour" :idClient="review.idClient" :reponse="review.reponse_admin" :key="review.idAvis" :id="review.idAvis" :note="review.note" :comment="review.commentaire" :date="review.dateAvis" :title="review.titreAvis"/>
         </div>
 
         <div id="related" v-if="relatedSejours">

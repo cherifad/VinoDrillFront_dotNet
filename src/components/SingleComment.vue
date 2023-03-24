@@ -1,8 +1,8 @@
-<template v-auto-animate>
-    <div v-auto-animate v-if="!estreponse">
-        <div class="relative bg-marrouge p-7 shadow-xl rounded-md">
+<template >
+    <div v-if="!estreponse">
+        <div class="relative bg-rosouge p-7 shadow-xl rounded-md">
             <div @click="toggleVisible" name="alert-circle"
-                class="absolute text-red-600 bottom-1 right-2 text-xs cursor-pointer">Signaler le commentaire</div>
+                class="absolute text-black bottom-1 right-2 text-xs cursor-pointer">Signaler le commentaire</div>
             <div class="flex justify-between">
                 <i>
                     <ion-icon class="text-xl" v-for="i in 5" :name="i <= note ? 'star' : 'star-outline'"></ion-icon>
@@ -19,13 +19,9 @@
         </div>
         
         <!-- pop up element -->
-        <div v-if="visible"
-            class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
-            <div class="relative p-7 lg:w-9/12 w-full h-full bg-slate-300 rounded-lg shadow-lg" v-auto-animate>
-                <ion-icon class="absolute top-3 right-3 text-3xl z-50 cursor-pointer text-black" @click="toggleVisible"
-                    name="close-circle"></ion-icon>
+        <Popup title="Signaler un avis" :show="visible" @update:show="visible = $event" @submit="showSuccess ? toggleVisible() : send()" :texteBouton="showSuccess ? 'Fermer' : 'Signaler'" v-auto-animate>
                 <div v-if="!showSuccess">                    
-                    <div class="bg-slate-700 p-7 shadow-xl rounded-md">
+                    <div class="bg-rosouge p-7 shadow-xl rounded-md">
                         <div class="flex md:flex-row flex-col md:justify-between">
                             <i>
                                 <ion-icon class="md:text-xl text-sm" v-for="i in 5" :name="i <= note ? 'star' : 'star-outline'"></ion-icon>
@@ -35,7 +31,7 @@
                         <h1 class="lg:text-xl text-sm font-bold dark:text-white">{{ title }}</h1>
                         <p class="lg:text-lg text-xs text-slate-300">{{ comment }}</p>
                     </div>
-                    <h1 class="mt-5 lg:text-3xl text-black">Qu'est ce qui ne vas pas avec ce commentaire ?</h1>
+                    <h1 class="mt-5 lg:text-3xl text-white">Qu'est ce qui ne vas pas avec ce commentaire ?</h1>
                     <ul id="list" class="lg:flex gap-2 justify-evenly mt-2">
                         <li @click="setSign('Inapproprié')" class="choice mt-3 cursor-pointer p-3 bg-white rounded-lg shadow-lg md:text-xl text-sm text-black">Il est inapproprié
                         </li>
@@ -43,15 +39,12 @@
                         <li @click="setSign('Faux')" class="choice mt-3 cursor-pointer p-3 bg-white rounded-lg shadow-lg md:text-xl text-sm text-black">Il est faux</li>
                         <li @click="setSign('Autre')" class="choice mt-3 cursor-pointer p-3 bg-white rounded-lg shadow-lg md:text-xl text-sm text-black">Autre</li>
                     </ul>
-                    <button @click="send" id="btnSignale" class="mt-5 bg-black hover:-translate-y-1 text-white w-full text-center p-3 rounded-lg shadow-lg md:text-xl text-sm">Signaler</button>
                 </div>
                 <div v-else>
-                    <h1 class="mt-5 text-3xl text-black">Merci pour votre signalement !</h1>
-                    <p class="mt-5 text-xl text-black">Nous allons étudier votre signalement et nous vous tiendrons au courant de la suite des événements.</p>
-                    <button @click="toggleVisible" class="mt-5 bg-black hover:-translate-y-1 text-white w-full text-center p-3 rounded-lg shadow-lg text-xl">Fermer</button>
+                    <h1 class="mt-5 text-3xl text-white">Merci pour votre signalement !</h1>
+                    <p class="mt-5 text-xl text-white">Nous allons étudier votre signalement et nous vous tiendrons au courant de la suite des événements.</p>
                 </div>
-            </div>
-        </div>
+        </Popup>
     </div>
 </template>
 
@@ -59,6 +52,7 @@
 
 import { nextTick, onMounted, ref } from 'vue';
 import axios from 'axios';
+import Popup from './Popup.vue';
 
 const avisignale = ref(true);
 const signaleComment = ref('');
@@ -66,6 +60,8 @@ const showSuccess = ref(false);
 
 const props = defineProps<{
     id: number;
+    idSejour: number;
+    idClient: number;
     note: number;
     comment: string;
     date: string;
@@ -97,13 +93,16 @@ const toggleVisible = () => {
 }
 
 const send = async () => {
-    axios.put(`/api/avis/${props.id}`, {
+    axios.put(`/api/Avi/${props.id}`, {
+                idSejour: props.idSejour,
+                idAvis: props.id,
+                idClient: props.idClient,
                 note: props.note,
                 commentaire: props.comment,
-                dateavis: props.date,
-                titreavis: props.title,
-                avisignale : avisignale.value,
-                typesignalement: signaleComment.value
+                dateAvis: props.date,
+                titreAvis: props.title,
+                avisSignale : avisignale.value,
+                typeSignalement: signaleComment.value
     })
     toggleSuccess();
 }

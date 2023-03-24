@@ -146,7 +146,7 @@
             <div v-if="avis.length > 0 && avis" v-for="avi in avis" class="w-full">
                 Avis sur le séjour n°{{ avi.idsejour }}
                 <RouterLink :to="{ name: 'SingleSejour', params: { id: avi.idsejour, slug: 'ref=avis' } }" class="text-rose underline">Voir le séjour</RouterLink>
-                <SingleComment class="w-full" :estreponse="false" :reponse="null" :key="avi.idavis" :id="avi.idavis" :note="avi.note" :date="avi.dateavis" :title="avi.titreavis" :comment="avi.commentaire" />
+                <SingleComment class="w-full" :estreponse="false" :reponse="null" :key="avi.idavis" :id="avi.idavis" :idSejour="avi.idSejour" :idClient="avi.idClient" :note="avi.note" :date="avi.dateavis" :title="avi.titreavis" :comment="avi.commentaire" />
             </div>
             <div v-else class="text-2xl w-full font-bold text-center mt-10">
                 Vous n'avez aucun avis.
