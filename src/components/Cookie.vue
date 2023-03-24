@@ -1,131 +1,137 @@
 <template>
-<div v-if="!allowCookie.accepte" id="cookie">
-    <div class="m-0 fixed w-fit bottom-3 left-3 z-40 p-0 box-border .font-sans">
-      <div id="cookie-container" class="show">
-          <img src="../assets/img/cookieImg.png">        
-          <p>
-          Bienvenu chez VinoDrill !
-          </p>
-          <p>
-            Notre site utilise des cookies indispensables à son bon fonctionnement, optimiser ses performances techniques et personnaliser l'affichage de nos pages. Pour obtenir davantage d'information, cliquez sur le bouton  <a href="#">Détails</a>. 
-          </p>
-          <button class="btn bg-rose" type="button" @click="allowCookie.allowCookie(true)" id="cookie-btn">Ok</button>
-          <button class="btn bg-rose" type="button" id="blurBtn" @click="details = true">Détail</button>
-      </div> 
+  <div
+    v-if="!allowCookie.accepte"
+    class="fixed bottom-2 left-2 z-50 bg-marrouge shadow-sm shadow-rose lg:w-1/3 w-full flex flex-col gap-3 items-center p-4 rounded-lg"
+  >
+    <svg
+      fill="#000000"
+      viewBox="0 0 24 24"
+      id="cookie"
+      data-name="Flat Line"
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon flat-line w-12 h-12"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          id="secondary"
+          d="M18.12,9.78a3,3,0,0,1-3.9-3.9A3,3,0,0,1,12,3a9,9,0,1,0,9,9A3,3,0,0,1,18.12,9.78Z"
+          style="fill: #cb7169; stroke-width: 2"
+        ></path>
+        <line
+          id="primary-upstroke"
+          x1="9.05"
+          y1="9.5"
+          x2="8.95"
+          y2="9.5"
+          style="
+            fill: none;
+            stroke: #ffffff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2.5;
+          "
+        ></line>
+        <line
+          id="primary-upstroke-2"
+          data-name="primary-upstroke"
+          x1="9.55"
+          y1="15"
+          x2="9.45"
+          y2="15"
+          style="
+            fill: none;
+            stroke: #ffffff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2.5;
+          "
+        ></line>
+        <line
+          id="primary-upstroke-3"
+          data-name="primary-upstroke"
+          x1="14.55"
+          y1="14"
+          x2="14.45"
+          y2="14"
+          style="
+            fill: none;
+            stroke: #ffffff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2.5;
+          "
+        ></line>
+        <path
+          id="primary"
+          d="M18.12,9.78a3,3,0,0,1-3.9-3.9A3,3,0,0,1,12,3a9,9,0,1,0,9,9A3,3,0,0,1,18.12,9.78Z"
+          style="
+            fill: none;
+            stroke: #ffffff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2;
+          "
+        ></path>
+      </g>
+    </svg>
+    <p class="text-center p-3">
+      Notre site utilise des
+      <span class="font-bold underline">cookies</span> indispensables à son bon
+      fonctionnement, optimiser ses performances techniques et personnaliser
+      l'affichage de nos pages. Pour obtenir davantage d'information
+    </p>
+    <div class="flex gap-2">
+      <button
+        @click="allowCookie.allowCookie(true)"
+        class="px-6 py-4 bg-rose rounded-l-3xl rounded-r-lg text-white outline-none border-2 border-rose hover:bg-transparent hover:text-rose hover:font-bold transition-all hover:p-5"
+      >
+        Accepter
+      </button>
+      <button
+        @click="details = true"
+        class="px-6 py-4 bg-rose rounded-r-3xl rounded-l-lg text-white outline-none border-2 border-rose hover:bg-transparent hover:text-rose hover:font-bold transition-all hover:p-5"
+      >
+        Détails
+      </button>
     </div>
-    <div v-if="details" class=".m-0 p-0 box-border font-sans z-50 flex shadow-xl justify-center">
-      <div id="detail-pop" >
-          <p class="text-xl underline underline-offset-8">Cookies nécessaires</p>
-          <p>
-            Il s'agit des cookies nécessaires au fonctionnement de notre site et aux services essentiels qui en font partie intégrante. Ils vous permettent d'utiliser les principales fonctionnalités de notre site par exemple commander un séjour, accéder à votre compte…
-            Ces cookies ne relèvent pas d’un choix et ne peuvent pas être refusés.
-          </p>
-          <p class="text-xl underline underline-offset-8">Plus d'informations sur les cookies ?</p>
-          <p>Sur le site de la CNIL, en cliquant <a href="https://www.cnil.fr/fr/site-web-cookies-et-autres-traceurs" target="_blank">ici</a>.</p>
-          <button class="btnn " type="button" id="unblurbtn" @click="details = false">Fermer</button>
+    <Popup title="Détails" :show="details" @update:show="details = $event" texte-bouton="Fermer" @submit="() => details = false">
+      <div class="lg:w-1/2 w-1/12">
+        <p class="text-xl underline underline-offset-8 mb-4">Cookies nécessaires</p>
+        <p>
+          Il s'agit des cookies nécessaires au fonctionnement de notre site et aux
+          services essentiels qui en font partie intégrante. Ils vous permettent
+          d'utiliser les principales fonctionnalités de notre site par exemple
+          commander un séjour, accéder à votre compte… Ces cookies ne relèvent pas
+          d’un choix et ne peuvent pas être refusés.
+        </p>
+        <p class="text-xl underline-offset-8 mt-4">
+          Plus d'informations sur les cookies sur le site de la CNIL, en cliquant
+          <a
+            href="https://www.cnil.fr/fr/site-web-cookies-et-autres-traceurs"
+            target="_blank"
+            class="underline"
+            >ici</a
+          >.
+        </p>
       </div>
-    </div>
-</div>
+    </Popup>
+  </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { useCookieStore } from '../stores/cookie';
+import { onMounted, ref } from "vue";
+import { useCookieStore } from "../stores/cookie";
+import Popup from "./Popup.vue";
 
 const allowCookie = useCookieStore();
- 
-const details = ref(false);
 
+const details = ref(false);
 </script>
 
-
-
-<style scoped>
-
-#cookie-container{
-  position: absolute;
-  font-size: 14px;
-  width: 70vw;
-  max-width: 42.85em;
-  background: #5e4242;
-  box-shadow: 0 0 2em #5e424279;
-  font-family: "Poppins", sans-serif;
-  text-align: justify;
-  line-height: 1.8em;
-  padding: 2em 1.4em;
-  border-radius: 6px;
-  transition: all 0.5s ease-in;
-  bottom: 0.1em;
-left: 62%;
-}
-#detail-pop{
-  text-align: justify;
-  z-index: +1;
-  position:fixed;
-  font-size: 14px;
-  max-width: 80em;
-  background: #5e4242;
-  box-shadow: 0 0 2em #5e424279;
-  font-family: "Poppins", sans-serif;
-  line-height: 1.8em;
-  padding: 4em 3.4em;
-  border-radius: 6px;
-  transition: all 0.5s ease-in;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-#detail-pop p{
-text-align: center;
-margin: 1.4em 0;
-}
-.blurr{
-  filter: blur(8px);
-}
-.collapse{
-  visibility: collapse;
-}
-.hide{
-visibility: hidden;
-
-}
-.show{
-visibility: visible;
-}
-
-#cookie-container img{
-  display: block;
-  width: 3.75em;
-  transform: translateZ(0);
-  position: relative;
-  margin: auto;
-}
-#cookie-container p{
-text-align: center;
-margin: 1.4em 0;
-}
-a{
-color: rgb(228, 21, 114);
-}
-.btn{
-  border:0;
-  color : #CB7169;
-  padding: 12px 48px;
-  font-size: 18px;
-  border-radius: 6px;
-  position: relative;
-  margin: auto;
-  margin-left: 2em;
-}
-.btnn{
-  background: pink;
-  border:0;
-  color: white;
-  padding: 12px 48px;
-  font-size: 18px;
-  border-radius: 8px;
-  margin: auto;
-  margin-left: 38%;
-}
-
-</style>
+<style scoped></style>

@@ -174,7 +174,6 @@
                     <button @click="login ? (!block ? authStore.login(loginForm.email, loginForm.password): null)
                      : (!block ? authStore.register(registerForm.lastname, registerForm.firstname, registerForm.email, registerForm.birthdate, registerForm.gender, registerForm.password, registerForm.passwordConfirm): null)"
                         class="bg-rose w-fit lg:px-12 px-2 rounded-full hover:-translate-y-1 text-white p-2">{{ login ? "Se connecter" : "S'inscrire" }}</button>
-                        {{block}} {{abeille}}
                 </div>
 
                 <div v-if="login" class="flex items-center flex-col gap-2">
