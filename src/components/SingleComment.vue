@@ -1,6 +1,6 @@
 <template v-auto-animate>
     <div v-auto-animate v-if="!estreponse">
-        <div class="relative bg-slate-700 p-7 shadow-xl rounded-md">
+        <div class="relative bg-marrouge p-7 shadow-xl rounded-md">
             <div @click="toggleVisible" name="alert-circle"
                 class="absolute text-red-600 bottom-1 right-2 text-xs cursor-pointer">Signaler le commentaire</div>
             <div class="flex justify-between">

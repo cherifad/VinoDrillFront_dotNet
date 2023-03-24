@@ -11,6 +11,7 @@ module.exports = {
         current: 'currentColor',
         'rose': '#CB7169',
         'rouge': '#350A06',
+        'marrouge': '#5e4242',
       },
     },
   },

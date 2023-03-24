@@ -104,14 +104,14 @@
                 </div>
                 <div v-if="commande_en_cours.length > 0" id="commande-encours" class="flex pt-6 mt-3 mb-3 flex-wrap">                    
                     <h1 class="xl:w-1/3 lg:w-1/2 w-full text-2xl flex items-center justify-center px-3 py-3 border-b-8 border-r-8 border-t-2 border-l-2 border-rose rounded-lg">Commandes en cours</h1>
-                    <div class="xl:w-1/3 lg:w-1/2 w-full px-3 py-3" v-for="commande in commande_en_cours" :key="commande.refcommande">
-                        <Commande :estPassee="estPassee(commande.reservationCommandeNavigation)" :cheminFacture="commande.cheminFacture" :estCheque="commande.estCheque" :refcommande="commande.refCommande" :datecommande="commande.dateCommande" :message="commande.message" :prixcommande="commande.prixCommande" :quantite="commande.quantite" :idclient="commande.idClient" :libellepaiement ="commande.paiementCommandeNavigation.libellePaiement"/>
+                    <div class="xl:w-1/3 lg:w-1/2 w-full px-3 py-3" v-for="commande in commande_en_cours" :key="commande.refCommande">
+                        <Commande :estPassee="estPassee(commande.reservationCommandeNavigation)" :cheminFacture="commande.cheminFacture" :estCheque="commande.estCheque" :refcommande="commande.refCommande" :datecommande="commande.dateCommande" :message="commande.message" :prixcommande="commande.prixCommande" :quantite="commande.quantite" :idclient="commande.idClient" :libellepaiement ="commande.paiementCommandeNavigation? commande.paiementCommandeNavigation.libellePaiement : 'CB'"/>
                     </div>
                 </div>
                 <div v-if="commande_terminee.length > 0" id="commande-terminee" class="flex pt-6 mt-3 mb-3 flex-wrap">                    
                     <h1 class="xl:w-1/3 lg:w-1/2 w-full text-2xl flex items-center justify-center px-3 py-3 border-b-8 border-r-8 border-t-2 border-l-2 border-rose rounded-lg">Commandes Terminée</h1>
-                    <div class="xl:w-1/3 lg:w-1/2 w-full px-3 py-3" v-for="commande in commande_terminee" :key="commande.refcommande">
-                        <Commande :estPassee="estPassee(commande.reservationCommandeNavigation)" :cheminFacture="commande.cheminFacture" :estCheque="commande.estCheque" :refcommande="commande.refCommande" :datecommande="commande.dateCommande" :message="commande.message" :prixcommande="commande.prixCommande" :quantite="commande.quantite" :idclient="commande.idClient" :libellepaiement ="commande.paiementCommandeNavigation.libellePaiement"/>
+                    <div class="xl:w-1/3 lg:w-1/2 w-full px-3 py-3" v-for="commande in commande_terminee" :key="commande.refCommande">
+                        <Commande :estPassee="estPassee(commande.reservationCommandeNavigation)" :cheminFacture="commande.cheminFacture" :estCheque="commande.estCheque" :refcommande="commande.refCommande" :datecommande="commande.dateCommande" :message="commande.message" :prixcommande="commande.prixCommande" :quantite="commande.quantite" :idclient="commande.idClient" :libellepaiement ="commande.paiementCommandeNavigation? commande.paiementCommandeNavigation.libellePaiement : 'CB'"/>
                     </div>
                 </div>
             </div>

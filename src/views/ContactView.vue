@@ -64,31 +64,22 @@
                 <button @click="toShow = true; form.lastname && form.firstname && form.object && form.mail && form.message && checked ? goodValidation() : badValidation();" class="bg-rose w-fit px-12 rounded-full text-white p-2">Envoyer</button>
             </div>
         </div>
-        <div v-if="toShow && isValid" class="h-screen w-screen fixed left-0 top-0 flex justify-center items-center">
-            <div class="popup rounded-3xl absolute z-10">
-                <div class="text-center" >
-                    <p class="text-xl mt-1 mb-2">Message Envoyée</p>
+        <Popup :title="isValid ? 'Message envoyé !' : 'Erreur !'" :show="toShow" @update:show="toShow = $event" @submit="() => toShow = false" texteBouton="OK" v-auto-animate>
+                <div v-if="isValid">
                     <p>Votre message a été envoyé avec succès ! <br>
                     Nous vous contacterons dans les plus bref délais</p>
-                    <button @click="toShow = false" class=" bg-white text-black font-semibold px-4 rounded-full mb-1 mt-2" type="button">OK</button>
                 </div>
-            </div>
-        </div>
-        <div v-if="toShow && !isValid" class="h-screen w-screen fixed left-0 top-0 flex justify-center items-center">
-            <div class="popup rounded-3xl fixed z-10">
-                <div class="text-center" >
-                    <p class="text-xl mt-1 mb-2">Message Erreur</p>
+                <div v-else>
                     <p>Votre message possède une erreur ! <br>
                     Veuillez remplir les champs obligatoires et/ou cocher la case d'acceptation de notre politique.</p>
-                    <button @click="toShow = false" class="bg-white text-black font-semibold px-4 rounded-full mb-1 mt-2" type="button">OK</button>
                 </div>
-            </div>
-        </div>
+        </Popup>
     </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import Popup from '../components/Popup.vue';
 
 var isValid = ref(false)
 var toShow = ref(false)
@@ -164,7 +155,6 @@ input[type=file]::file-selector-button {
 }
 
 .popup{
-    background-color:#655844;
     width: 900px;
 }
 

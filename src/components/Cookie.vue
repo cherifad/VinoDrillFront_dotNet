@@ -9,8 +9,8 @@
           <p>
             Notre site utilise des cookies indispensables à son bon fonctionnement, optimiser ses performances techniques et personnaliser l'affichage de nos pages. Pour obtenir davantage d'information, cliquez sur le bouton  <a href="#">Détails</a>. 
           </p>
-          <button class="btn " type="button" @click="allowCookie.allowCookie(true)" id="cookie-btn">Ok</button>
-          <button class="btn" type="button" id="blurBtn" @click="details = true">Détail</button>
+          <button class="btn bg-rose" type="button" @click="allowCookie.allowCookie(true)" id="cookie-btn">Ok</button>
+          <button class="btn bg-rose" type="button" id="blurBtn" @click="details = true">Détail</button>
       </div> 
     </div>
     <div v-if="details" class=".m-0 p-0 box-border font-sans z-50 flex shadow-xl justify-center">
@@ -108,7 +108,6 @@ a{
 color: rgb(228, 21, 114);
 }
 .btn{
-  background: pink;
   border:0;
   color : #CB7169;
   padding: 12px 48px;
