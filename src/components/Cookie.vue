@@ -101,9 +101,9 @@
       </button>
     </div>
     <Popup title="Détails" :show="details" @update:show="details = $event" texte-bouton="Fermer" @submit="() => details = false">
-      <div class="lg:w-1/2 w-1/12">
+      <div class=" max-w-[550px]">
         <p class="text-xl underline underline-offset-8 mb-4">Cookies nécessaires</p>
-        <p>
+        <p class=" text-justify">
           Il s'agit des cookies nécessaires au fonctionnement de notre site et aux
           services essentiels qui en font partie intégrante. Ils vous permettent
           d'utiliser les principales fonctionnalités de notre site par exemple
