@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center">
         <!-- make a rating component -->
-        <div class="flex flex-col gap-4 box rounded-lg text-white p-5">
+        <div class="flex flex-col gap-4 box rounded-lg text-white p-5 bg-rosouge">
             <h1 class=" font-bold text-5xl">Avis client</h1>
             <div class="flex gap-2 items-end">
                 <h1 class=" font-bold text-7xl">{{ ratingaverage }}/5</h1>

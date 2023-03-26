@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-slate-400 p-7 shadow-xl rounded-md">
+    <div class="bg-marrose p-7 shadow-xl rounded-md">
         <div class="lg:grid flex flex-col gap-3 lg:grid-cols-3">
             <div class=" col-span-2">            
                 <h1 class="text-2xl font-bold mb-2">{{ titre }}</h1>
@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class=" flex ">
-            <a href="https://google.fr" target="_blank" class="bg-slate-700 text-white p-2 block mt-2 w-fit rounded-md shadow-md hover:bg-slate-600">En savoir plus</a>
+            <a href="https://google.fr" target="_blank" class="bg-marrouge text-white p-2 block mt-2 w-fit rounded-md shadow-md hover:bg-rosedark">En savoir plus</a>
             <Tooltip text="En cliquant sur le bouton, vous allez être redirigé vers le site internet de l'hébergement"/>
         </div>
     </div> 

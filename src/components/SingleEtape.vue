@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-slate-700 p-7 shadow-xl rounded-md lg:grid flex gap-3 flex-col lg:grid-cols-3">
+    <div class="bg-marrouge p-7 shadow-xl rounded-md lg:grid flex gap-3 flex-col lg:grid-cols-3">
         <div class="col-span-2">            
             <h1 class="text-2xl font-bold mb-2">{{ titre }}</h1>
             <p class=" text-lg">{{ description }}</p>

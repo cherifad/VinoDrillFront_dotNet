@@ -16,6 +16,7 @@ module.exports = {
         'marrose': '#96574E',
         'rosouge': '#803E38',
         'rosedark': '#BD6962',
+        'roselight':'#EED0CD',
       },
     },
   },
