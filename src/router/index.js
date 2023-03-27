@@ -293,7 +293,57 @@ const router = createRouter({
       path: '/aide',
       name: 'BesoinDAide',
       component: () => import('../views/BesoinDaideView.vue'),
-    } 
+    },
+    {
+      path: '/vignoble/val-de-loire',
+      name: 'VignobleValDeLoire',
+      component: () => import('../views/vignobles/VignobleValView.vue'),
+    },
+    {
+      path: '/vignoble/champagne',
+      name: 'VignobleChampagne',
+      component: () => import('../views/vignobles/VignobleChampagneView.vue'),
+    },
+    {
+      path: '/vignoble/bordeaux',
+      name: 'VignobleBordeauxe',
+      component: () => import('../views/vignobles/VignobleBordeauxView.vue'),
+    },
+    {
+      path: '/vignoble/vallee-du-rhone',
+      name: 'VignobleValleeDuRhone',
+      component: () => import('../views/vignobles/VignobleRhoneView.vue'),
+    },
+    {
+      path: '/vignoble/alsace',
+      name: 'VignobleAlsace',
+      component: () => import('../views/vignobles/VignobleAlsaceView.vue'),
+    },
+    {
+      path: '/vignoble/languedoc-roussillon',
+      name: 'VignobleLanguedocRoussillon',
+      component: () => import('../views/vignobles/VignobleLanguedocView.vue'),
+    },
+    {
+      path: '/vignoble/bourgogne',
+      name: 'VignobleBourgogne',
+      component: () => import('../views/vignobles/VignobleBourgogneView.vue'),
+    },
+    {
+      path: '/vignoble/beaujolais',
+      name: 'VignobleBeaujolais',
+      component: () => import('../views/vignobles/VignobleBeaujolaisView.vue'),
+    },
+    {
+      path: '/vignoble/provence',
+      name: 'VignobleProvence',
+      component: () => import('../views/vignobles/VignobleProvenceView.vue'),
+    },
+    {
+      path: '/vignoble/sud-ouest',
+      name: 'VignobleSudOuest',
+      component: () => import('../views/vignobles/VignobleSudOuestView.vue'),
+    }
   ],
 });
 
