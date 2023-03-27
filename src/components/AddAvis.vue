@@ -7,7 +7,12 @@ import { formatDate } from '@vueuse/shared';
 const props = defineProps<{
     idsejour: any;
     idclient: any;
+    addShow: any;
 }>();
+
+  const emit = defineEmits(['update:addShow']);
+
+  const close = () => emit('update:addShow', false);
 
 const form = ref({
     note: 0,
@@ -46,8 +51,7 @@ const removePictureWuthObject = (picture: any) => {
     pictures.value = pictures.value.filter((p) => p !== picture)
 }
 
-const addNewAvis = async (event) => {
-    event.preventDefault();
+const addNewAvis = async () => {
     console.log('addNewAvis')
 
     const formData = new FormData();
@@ -70,7 +74,7 @@ const addNewAvis = async (event) => {
     //     images: filesInput.value
     //   });
     //   console.log(response);
-      await axios.post('/api/avis', {
+      await axios.post('/api/Avi', {
         idsejour: props.idsejour,
         idclient: props.idclient,
         note: form.value.note,
@@ -85,17 +89,21 @@ const addNewAvis = async (event) => {
       console.error(error);
     }
 
+    close();
 
+}
+
+function affiche(){
+    console.log('oui')
 }
 </script>
 
 <template>
-    
-     <form @submit="addNewAvis" class="w-full">
+    <Popup title="Rédiger un avis" :show="addShow" @update:show="close" @submit="() => addNewAvis()" v-auto-animate>
         <div class="mb-6 flex gap-6 w-full items-center">
             <div class="w-1/2">
                 <label for="titresejour" class="block mb-2 text-sm font-medium text-white">Titre</label>
-                <input v-model="form.titreavis" type="text" id="titresejour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+                <input v-model="form.titreavis" type="text" id="titresejour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 " required>
             </div>
             <div class="w-1/2">
                 <label for="note" class="mb-2 text-sm font-medium text-white flex items-center gap-3">
@@ -108,12 +116,12 @@ const addNewAvis = async (event) => {
                         </i>
                     </div>
                 </label>
-                <input v-model="form.note" step="1" max="5" min="0" type="range" id="note" class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                <input v-model="form.note" step="1" max="5" min="0" type="range" id="note" class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg w-full p-2.5" required>
             </div>
         </div>
         <div class="mb-6">
             <label for="message" class="block mb-2 text-sm font-medium text-white">Description</label>
-            <textarea v-model="form.commentaire" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            <textarea v-model="form.commentaire" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"></textarea>
         </div> 
          <div class="mb-6" v-auto-animate>
             <label v-if="pictures.length <= 5" for="dropzone-file" class="flex mb-6 min-w-fit flex-1 flex-col items-center justify-center h-64 border-2 px-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
@@ -133,7 +141,6 @@ const addNewAvis = async (event) => {
                     <img class="rounded-lg h-64 cursor-pointer" :src="img" :alt="'Avis image n°' + pictures.length">
                 </div>
             </div>
-        </div> 
-        <button type="submit" class="w-full py-2.5 px-5 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50 ">Envoyer</button>
-    </form>
+        </div>
+    </Popup>
 </template>

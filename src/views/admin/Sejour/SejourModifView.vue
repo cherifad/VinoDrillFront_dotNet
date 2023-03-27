@@ -58,10 +58,12 @@
                     </div>
                     <div v-if="!libelleTemps" class=" w-2/5">
                         <label for="nbJours" class="block mb-2 text-sm font-medium text-white">Nombre de jours</label>
+                        {{form.nbJour}}
                         <input v-model="form.nbJour" type="number" id="nbjours" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
                     </div>
                     <div v-if="libelleTemps" class="w-4/5">
                         <label for="countries" class="block mb-2 text-sm font-medium text-white">Selectionner une option</label>
+                        {{form.libelleTemps}}
                         <select v-model="form.libelleTemps" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="Matinée">Matinée</option>
                             <option value="Midi">Midi</option>
@@ -93,13 +95,13 @@
             <div class="flex gap-6 mb-6">
                 <div class="w-1/2">
                     <label for="themes" class="block mb-2 text-sm font-medium text-white">Selectionner un theme</label>
-                    <select v-model="form.idtheme" id="themes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select v-model="form.idTheme" id="themes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option v-for="theme in themes" :value="theme.idTheme">{{ theme.libelleTheme }}</option>
                     </select>
                 </div>
                 <div class="w-1/2">                    
                     <label for="destinations" class="block mb-2 text-sm font-medium text-white">Selectionner une destination</label>
-                    <select v-model="form.iddestination" id="destinations" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select v-model="form.idDestination" id="destinations" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option v-for="destination in destinations" :value="destination.idDestination">{{ destination.libelleDestination }}</option>
                     </select>
                 </div>
@@ -235,6 +237,8 @@ function popitup(url,windowName) {
   return false;
 }
 
+
+
 const picture = ref(null)
 const fileInput: any = ref(null)
 
@@ -318,7 +322,14 @@ const addNewActivite = async (event) => {
         return;
     });
 
-    !libelleTemps.value ? form.value.libelleTemps = null : form.value.nbNuit = null, form.value.nbJour = null;
+    if(!libelleTemps.value)
+    {
+        form.value.libelleTemps = null
+    }
+    else{
+        form.value.nbNuit = null;
+        form.value.nbJour = null
+    }
 
     apis.updateSejourById(id, form.value)
     .then((response) => {

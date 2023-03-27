@@ -48,12 +48,12 @@
                 </div>
             </div>
         </div>
-        <div v-if="cannAddAvis && !avisClient" @click="addAvis = !addAvis" class="flex mb-6 w-fit cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 p-3 bg-rose border-rose border-2 hover:bg-transparent font-semibold">
+        <div v-if="cannAddAvis && !avisClient" @click="addAvis = !addAvis" class="flex mb-6 w-full cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 p-3 bg-rose border-rose border-2 hover:bg-transparent font-semibold justify-center">
             <ion-icon name="pencil"></ion-icon>
             Rédiger un avis
         </div>
-        <AddAvis v-if="addAvis" :idsejour="sejour.idSejour" :idclient="idclient"/>
-        <SingleComment v-if="avisClient" v-for="avi in avisClient" :estreponse="false" :reponse="null" :key="avi.idavis" :id="avi.idavis" :note="avi.note" :date="avi.dateavis" :title="avi.titreavis" :comment="avi.commentaire" />
+        <AddAvis :addShow="addAvis" :idsejour="sejour.idSejour" :idclient="idclient" @update:addShow="addAvis = $event"/>
+        <SingleComment v-if="avisClient" v-for="avi in avisClient" :estreponse="false" :reponse="null" :key="avi.idAvis" :id="avi.idAvis" :note="avi.note" :date="avi.dateAvis" :title="avi.titreAvis" :comment="avi.commentaire" />
     </div>
     <div v-else>
         <LoadComponent />
@@ -66,6 +66,7 @@ import axios from 'axios';
 import AddAvis from '../AddAvis.vue';
 import SingleComment from '../SingleComment.vue';
 import LoadComponent from '../LoadComponent.vue';
+import Popup from '../Popup.vue';
 
 const addAvis = ref(false);
 const copied = ref(false);
@@ -122,15 +123,18 @@ onMounted(async () => {
     await axios.get('/api/Sejour/' + props.idsejour)
         .then((response) => {
             sejour.value = response.data;
+            console.log('Séjour => ' + response.data.idSejour)
         })
         .catch((error) => {
             console.log(error);
         });
     await axios.get('/api/Avi?idClient=' + props.idclient + '&idSejour=' + props.idsejour)
         .then((response) => {
-            if (response.data.length === 0 && dateReservation < today) {
+            if (response.data.length == 0 && dateReservation < today) {
                 cannAddAvis.value = true;
+                console.log('ho : ' + props.idsejour)
             } else {
+                console.log(props.idsejour)
                 avisClient.value = response.data;
             }
         })

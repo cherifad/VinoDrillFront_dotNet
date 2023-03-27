@@ -59,8 +59,8 @@
             </tfoot>  
             <Popup :show="showPromoPopup" @update:show="showPromoPopup = $event" @submit="setPromotion(selectedIdPromo)" :title="'Mettre en promotion le n°' + selectedIdPromo" >
                 <div class="flex flex-col gap-3">
-                    <label for="promo" class="block text-sm font-medium text-gray-900 dark:text-white">Prix actuel : {{ oldPrice }}€</label>
-                    <label for="promo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix après promotion de {{ promoPercent }}% : {{ oldPrice - (oldPrice * promoPercent / 100) }}€</label>
+                    <label for="promo" class="block text-sm font-medium text-white">Prix actuel : {{ oldPrice }}€</label>
+                    <label for="promo" class="block mb-2 text-sm font-medium text-white">Prix après promotion de {{ promoPercent }}% : {{ oldPrice - (oldPrice * promoPercent / 100) }}€</label>
                     <input @input="checkPromoPercent" type="number" min="0" max="100" id="promo" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="promoPercent" />
                     <div v-if="promoPercentError" v-auto-animate class="relative px-4 py-3 leading-normal text-red-700 bg-red-100 rounded-lg" role="alert">
                         <span class="absolute inset-y-0 left-0 flex items-center ml-4">

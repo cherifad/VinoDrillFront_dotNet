@@ -143,10 +143,10 @@
 
         <!-- Mes avis -->
         <div class="flex mt-3 mb-3 flex-wrap flex-col gap-3"  v-if="choice == 'avis'">
-            <div v-if="avis.length > 0 && avis" v-for="avi in avis" class="w-full">
-                Avis sur le séjour n°{{ avi.idsejour }}
-                <RouterLink :to="{ name: 'SingleSejour', params: { id: avi.idsejour, slug: 'ref=avis' } }" class="text-rose underline">Voir le séjour</RouterLink>
-                <SingleComment class="w-full" :estreponse="false" :reponse="null" :key="avi.idavis" :id="avi.idavis" :idSejour="avi.idSejour" :idClient="avi.idClient" :note="avi.note" :date="avi.dateavis" :title="avi.titreavis" :comment="avi.commentaire" />
+            <div v-if="userData.avisClientNavigation.length > 0 && userData.avisClientNavigation" v-for="avi in userData.avisClientNavigation" class="w-full">
+                Avis sur le séjour n°{{ avi.idSejour }}
+                <RouterLink :to="{ name: 'SingleSejour', params: { id: avi.idSejour, slug: 'ref=avis' } }" class="text-rose underline">Voir le séjour</RouterLink>
+                <SingleComment class="w-full" :estreponse="false" :reponse="null" :key="avi.idAvis" :id="avi.idAvis" :idSejour="avi.idSejour" :idClient="avi.idClient" :note="avi.note" :date="avi.dateAvis" :title="avi.titreAvis" :comment="avi.commentaire" />
             </div>
             <div v-else class="text-2xl w-full font-bold text-center mt-10">
                 Vous n'avez aucun avis.
