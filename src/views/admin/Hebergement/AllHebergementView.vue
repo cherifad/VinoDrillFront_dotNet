@@ -1,6 +1,11 @@
 <template>
     <div>
-        <table v-if="hebergements" class="w-full">
+        <div class="flex justify-end">
+            <RouterLink to="/admin" class="cursor-pointer bg-rose hover:bg-rosedark text-white font-bold py-2 px-4 rounded " title="Cliquer ici pour revenir à la page précédente">
+            Retour
+            </RouterLink>
+        </div>
+        <table v-if="hebergements" class="w-full mt-5">
             <thead>
                 <tr>
                     <th>N°</th>
@@ -10,13 +15,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="hebergement in hebergements" :key="hebergement.idhebergement">
-                    <td>{{ hebergement.idhebergement }}</td>
-                    <td>{{ hebergement.libellehebergement }}</td>
-                    <td>{{ hebergement.descriptionhebergement }}</td>
+                <tr v-for="hebergement in hebergements" :key="hebergement.idHebergement">
+                    <td>{{ hebergement.idHebergement }}</td>
+                    <td>{{ hebergement.libelleHebergement }}</td>
+                    <td>{{ hebergement.descriptionHebergement }}</td>
                     <td>
                         <div class="flex gap-3 justify-center">
-                            <router-link :to="{ name: 'AdminSejourModif', params: { id: hebergement.idhebergement } }">
+                            <router-link to="/admin/HebergementModif">
                                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     Modifier
                                 </button>
@@ -31,9 +36,9 @@
             <tfoot>
                 <tr>
                     <td colspan="4">
-                        <router-link to="/admin/hebergement/ajout">
+                        <router-link to="/admin/hebergements/new">
                             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Ajouter un séjour
+                                Ajouter un hébergement
                             </button>
                         </router-link>
                     </td>
@@ -62,8 +67,8 @@ const submitHandler = () => {
 
 const getHebergements = async () => {
     const response = await apis.getHebergements();
-    hebergements.value = response.data.data;
-    hebergements.value.sort((a: any, b: any) => a.idhebergement - b.idhebergement);
+    hebergements.value = response.data;
+    hebergements.value.sort((a: any, b: any) => a.idHebergement - b.idHebergement);
 }
 
 const fakeDelete = () => {
@@ -73,7 +78,7 @@ const fakeDelete = () => {
 
 // get hebergement from hebergements array by id
 const getSejourById = (id: number) => {
-    return hebergements.value.find((hebergement: any) => hebergement.idhebergement === id);
+    return hebergements.value.find((hebergement: any) => hebergement.idHebergement === id);
 }
 
 onMounted(getHebergements);

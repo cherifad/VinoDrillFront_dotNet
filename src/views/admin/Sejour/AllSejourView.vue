@@ -1,6 +1,11 @@
 <template>
     <div>
-        <table v-if="sejours" class="w-full">
+        <div class="flex justify-end">
+            <RouterLink to="/admin" class="cursor-pointer bg-rose hover:bg-rosedark text-white font-bold py-2 px-4 rounded " title="Cliquer ici pour revenir à la page précédente">
+            Retour
+            </RouterLink>
+        </div>
+        <table v-if="sejours" class="w-full mt-5">
             <thead >
                 <tr>
                     <th>N°</th>
