@@ -26,7 +26,7 @@
 
       <h2 class=" flex text-3xl mt-10 mb-10" id="title">Les Routes en France</h2>
         <p class="text-justify mt-3">Les routes des vins sillonnent tous les vignobles français. Créées à partir des années 1950, ces itinéraires vous offrent l’opportunité unique de plonger, tête la première, au cœur d’une région viticole : découvertes œnologiques, culturelles et gastronomiques sont au programme.<br>
-        Aujourd’hui près de 7,5 millions d’oenotouristes* parcourent les vignobles chaque année : Français et étrangers, débutants et experts, tous les publics se retrouvent pour une balade de caves en caves, de dégustations de vins. De la plus connue comme la <a id="links" target="blank" href="">route des vins d'Alsace</a> à la plus confidentielle, la plus longue à la plus brève, la plus ensoleillée à la plus fraîche, nous vous proposons un petit tour d’horizon des routes des vins de France, à visiter ou à (re)visiter. Les itinéraires des routes des vins de France seront vous charmer, que cela soit en voiture, à pied ou à vélo !
+        Aujourd’hui près de 7,5 millions d’oenotouristes* parcourent les vignobles chaque année : Français et étrangers, débutants et experts, tous les publics se retrouvent pour une balade de caves en caves, de dégustations de vins. De la plus connue comme la <RouterLink to="/route-alsace" >route des vins d'Alsace</RouterLink> à la plus confidentielle, la plus longue à la plus brève, la plus ensoleillée à la plus fraîche, nous vous proposons un petit tour d’horizon des routes des vins de France, à visiter ou à (re)visiter. Les itinéraires des routes des vins de France seront vous charmer, que cela soit en voiture, à pied ou à vélo !
         </p>
         <p class=" text-sm pt-1 italic">
           * Source : <a id="links" target="blank" href="https://www.atout-france.fr/">Atout France</a>, Tourisme et Vin - données 2010
@@ -276,7 +276,7 @@
   #title {
     color: #CB7169;
   }
-  #links {
+  a, #links {
   color: rgb(228, 21, 114);
   }
   .row {

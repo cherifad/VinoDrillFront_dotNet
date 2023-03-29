@@ -11,10 +11,12 @@
         <h1 class="text-2xl font-bold pl-4 ">{{ title }}</h1>
         <p class="pl-4 mb-10">{{description}}</p>
         <div class=" flex mr-2 absolute bottom-2 right-2">
-            <button type="button" class="button text-black bg-white select-none hover:bg-rose mr-1 p-2 rounded-xl">
-                <RouterLink to="/sejour">Découvrir les séjours</RouterLink>
-            </button>
-             
+            <router-link :to="'/vignoble/' + slugify(title)">
+                <button type="button" class="button text-black bg-white select-none hover:bg-rose mr-1 p-2 rounded-xl">
+                    Découvrir le vignoble
+                </button>
+            </router-link>
+
         </div>
         
     </div>    
@@ -31,6 +33,17 @@ const props = defineProps<{
     }>(); 
 let button = document.querySelectorAll('.button');
 
+
+    function slugify(string) {
+        return string
+            .toString()
+            .normalize('NFD') // split an accented letter in the base letter and the acent
+            .replace(/[\u0300-\u036f]/g, '') // remove all previously split accents
+            .toLowerCase()
+            .trim()
+            .replace(/&/g, '-and-') // replace & with 'and'
+            .replace(/[\s\W-]+/g, '-'); // replace spaces, non-word characters and dashes with a single dash (-)
+    }
 </script>
 <style scoped>
 * {

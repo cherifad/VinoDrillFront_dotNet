@@ -191,7 +191,7 @@
 
 </script>
 
-<style>
+<style scoped>
     a {
         color: rgb(228, 21, 114);
     }
