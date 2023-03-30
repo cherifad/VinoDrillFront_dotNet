@@ -81,7 +81,7 @@ onMounted(async () => {
 
     const headerHeight = header?.clientHeight;
     height.value = headerHeight + 35;
-    admin.value ? height.value += adminMenu.value?.clientHeight : '';
+    // admin.value ? height.value += adminMenu.value?.clientHeight : '';
   });
 
   window.addEventListener('locationchange', function () {
