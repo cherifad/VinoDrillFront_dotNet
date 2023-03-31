@@ -22,7 +22,7 @@ export const useAuthStore = defineStore("auth", {
   },
   actions: {
     async login(email, password) {
-      this.authError = [];
+      this.authErrors = [];
       // await this.getToken();
       try {
         const response = await axios.post("/api/Authenticate/login", {
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore("auth", {
         this.authUser = response.data.userDetails;
         this.router.push("/mon-compte");
       } catch (error) {
-        this.authErrors.push("Identifiants incorrects");
+        this.authErrors.push("Identifiant ou mot de passe incorrect");
       }
     },
     async logout() {
@@ -51,7 +51,7 @@ export const useAuthStore = defineStore("auth", {
       motdepasse,
       motdepasse_confirmation
     ) {
-      this.authError = [];
+      this.authErrors = [];
       try {
         const response = await axios.post("/api/Authenticate/register", {
           email: emailclient,

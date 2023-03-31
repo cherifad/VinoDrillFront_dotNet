@@ -24,10 +24,11 @@
                     </div>
                 </div>
             </div>
-            <div id="form" class="flex flex-col gap-3 w-full lg:px-12" v-auto-animate>
+            <form id="form" class="flex flex-col gap-3 w-full lg:px-12" v-auto-animate @submit="(e) => executeForm(e)">
 
                 <!-- Login -->
 
+                
                 <div v-if="login" class="flex flex-col gap-4">
                     <div class="flex w-full flex-col gap-2" v-auto-animate>
                         <label for="email" class="text-white w-full">Email</label>
@@ -52,11 +53,11 @@
                                 class="rounded-full w-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 placeholder="Mot de passe">
                         </div>
-                        <div v-if="authStore.errors.password && login" v-auto-animate class="relative px-4 py-3 leading-normal text-red-700 bg-red-100 rounded-lg" role="alert">
+                        <div v-if="authStore.errors[0] && login" v-auto-animate class="relative px-4 py-3 leading-normal text-red-700 bg-red-100 rounded-lg" role="alert">
                             <span class="absolute inset-y-0 left-0 flex items-center ml-4">
                                 <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
                             </span>
-                            <p class="ml-6">{{ authStore.errors.password[0] }}</p>
+                            <p class="ml-6">{{ authStore.errors[0] }}</p>
                         </div>
                         <input type="text" v-model="abeille" name="email" class="hidden">
                     </div>                    
@@ -86,8 +87,8 @@
                             <input v-model="registerForm.lastname" type="text" id="lastname"
                                 class="rounded-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 placeholder="Durant">
-                            <div v-if="authStore.errors.nomclient && !login" v-auto-animate>
-                                <p class="text-red-500">{{ authStore.errors.nomclient[0] }}</p>
+                            <div v-if="authStore.errors.LastName && !login" v-auto-animate>
+                                <p class="text-red-500">{{ authStore.errors.LastName[0] }}</p>
                             </div>
                         </div>
                         <div class="flex w-full flex-col gap-2">
@@ -95,8 +96,8 @@
                             <input v-model="registerForm.firstname" type="text" id="firstename"
                                 class="rounded-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 placeholder="Michel">
-                            <div v-if="authStore.errors.prenomclient && !login" v-auto-animate>
-                                <p class="text-red-500">{{ authStore.errors.prenomclient[0] }}</p>
+                            <div v-if="authStore.errors.FirstName && !login" v-auto-animate>
+                                <p class="text-red-500">{{ authStore.errors.FirstName[0] }}</p>
                             </div>
                         </div>
                     </div>
@@ -107,8 +108,8 @@
                         <input v-model="registerForm.email" type="email" id="email"
                             class="rounded-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                             placeholder="Email">
-                        <div v-if="authStore.errors.emailclient && !login" v-auto-animate>
-                            <p class="text-red-500">{{ authStore.errors.emailclient[0] }}</p>
+                        <div v-if="authStore.errors.Email && !login" v-auto-animate>
+                            <p class="text-red-500">{{ authStore.errors.Email[0] }}</p>
                         </div>
                     </div>
 
@@ -120,8 +121,8 @@
                             <input v-model="registerForm.birthdate" type="date" id="birthdate"
                                 class="rounded-full w-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 max="12-02-1992">
-                            <div v-if="authStore.errors.datenaissance && !login" v-auto-animate>
-                                <p class="text-red-500">{{ authStore.errors.datenaissance[0] }}</p>
+                            <div v-if="authStore.errors.dateOfBirth && !login" v-auto-animate>
+                                <p class="text-red-500">Veuillez renseigner une date de naissance</p>
                             </div>
                         </div>
                         <!-- <div class="flex w-full flex-col gap-2">
@@ -146,8 +147,8 @@
                                 class="rounded-full w-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 placeholder="Mot de passe">
                         </div>
-                        <div v-if="authStore.errors.motdepasse && !login" v-auto-animate>
-                            <p v-for="error in authStore.errors.motdepasse" :key="error" class="text-red-500">{{ error.includes('confirmation') ? null : error }}</p>
+                        <div v-if="authStore.errors.Password && !login" v-auto-animate>
+                            <p v-for="error in authStore.errors.Password" :key="error" class="text-red-500">{{ error }}</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 relative">
@@ -157,22 +158,22 @@
                                 <ion-icon @click="show = !show" v-if="!show"  class="text-3xl cursor-pointer bottom-auto text-rose" name="eye-outline"></ion-icon>
                                 <ion-icon @click="show = !show" v-else class="text-3xl cursor-pointer bottom-auto text-rose" name="eye-off-outline"></ion-icon>
                             </div>
-                            <input v-model="registerForm.passwordConfirm" :type="show ? 'text': 'password'" id="password" name="passwordConfirm"
+                            <input v-model="registerForm.PasswordConfirm" :type="show ? 'text': 'password'" id="password" name="passwordConfirm"
                                 class="rounded-full w-full border-2 p-4 text-rouge border-rose focus:border-rouge outline-none"
                                 placeholder="Mot de passe">
                         </div>
-                        <div v-if="authStore.errors.motdepasse && !login" v-auto-animate>
-                            <p v-for="error in authStore.errors.motdepasse" :key="error" class="text-red-500">{{ error.includes('confirmation') ? error : null }}</p>
+                        <div v-if="authStore.errors.ConfirmPassword && !login" v-auto-animate>
+                            <p v-for="error in authStore.errors.ConfirmPassword" :key="error" class="text-red-500">{{ error }}</p>
                         </div>
                     </div>
                 </div>
+
                 <!-- <RouterLink :to=" login ? '/mot-de-passe-oublie' : login = true">
                     {{ login ? 'Mot de passe oublié ?' : 'Déjà inscrit ? Se connecter' }}
                 </RouterLink> -->
 
                 <div class="flex justify-end">
-                    <button @click="login ? (!block ? authStore.login(loginForm.email, loginForm.password): null)
-                     : (!block ? authStore.register(registerForm.lastname, registerForm.firstname, registerForm.email, registerForm.birthdate, registerForm.gender, registerForm.password, registerForm.passwordConfirm): null)"
+                    <button type="submit"
                         class="bg-rose w-fit lg:px-12 px-2 rounded-full hover:-translate-y-1 text-white p-2">{{ login ? "Se connecter" : "S'inscrire" }}</button>
                 </div>
 
@@ -193,7 +194,7 @@
                         Se connecter avec Twitter
                     </a>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </template>
@@ -280,6 +281,20 @@ const toggleLogin = (registration) => {
         registerText.value.classList.add('active')
         loginText.value.classList.remove('active')
         logRegBack.value.style.transform = 'translateX(100%)'
+    }
+};
+
+const executeForm = (event) => {
+    event.preventDefault();
+    if(login.value){
+        if(!block.value){
+            authStore.login(loginForm.value.email, loginForm.value.password)
+        }
+    }
+    else{
+        if(!block.value){
+            authStore.register(registerForm.value.lastname, registerForm.value.firstname, registerForm.value.email, registerForm.value.birthdate, registerForm.value.gender, registerForm.value.password, registerForm.value.passwordConfirm)
+        }
     }
 };
 

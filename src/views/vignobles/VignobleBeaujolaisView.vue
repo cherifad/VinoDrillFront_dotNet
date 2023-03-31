@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class=" text-center text-2xl">Découvrir la région du Beaujolais</h1>
+        <h1 class=" text-center text-2xl">DÃ©couvrir la rÃ©gion du Beaujolais</h1>
         <div class=" flex justify-center mt-3">
             <div class=" w-20 border"></div>
         </div>
@@ -8,50 +8,50 @@
         <div>
             <h2 class="flex text-3xl mt-10 mb-5" id="title">Sommaire</h2>
             <ul class="list list-disc list-inside">
-                <li><a href="#vignoble">Découvrir le vignoble du Beaujolais </a></li>
+                <li><a href="#vignoble">DÃ©couvrir le vignoble du Beaujolais </a></li>
                 <li><a href="#villages">Villes et villages viticoles du Beaujolais</a></li>
                 <li><a href="#vins">Partez sur les routes des vins du Beaujolais</a></li>
                 <li><a href="#weekend">3 raisons de venir en week-end en Beaujolais</a></li>
-                <li><a href="#tourisme">Tourisme et activités dans le vignoble du Beaujolais</a></li>
+                <li><a href="#tourisme">Tourisme et activitÃ©s dans le vignoble du Beaujolais</a></li>
             </ul>
         </div>
 
         <div id="vignoble" class="text-justify">
-            <h2 class=" flex text-3xl mt-10 mb-5" id="title">Découvrir le vignoble du Beaujolais</h2>
+            <h2 class=" flex text-3xl mt-10 mb-5" id="title">DÃ©couvrir le vignoble du Beaujolais</h2>
             <p>
-                Le Beaujolais est mondialement connu pour son « Beaujolais Nouveau » dont la vente en primeur de novembre fait la une de la presse chaque année. Mais sa renommée ne doit pas faire oublier la diversité de la production du Beaujolais - vins de garde et appellations de grande qualité - et la beauté de ses paysages viticoles vallonnés, de ses châteaux et villages médiévaux aux pierres dorées. Autant de bonnes raisons de partir en séjour œnologique dans le Beaujolais, et sillonner le vignoble sur 55 kilomètres, entre Mâcon et Lyon, à la découverte de sa gastronomie, de ses vins et de ses vignerons.
+                Le Beaujolais est mondialement connu pour son Â« Beaujolais Nouveau Â» dont la vente en primeur de novembre fait la une de la presse chaque annÃ©e. Mais sa renommÃ©e ne doit pas faire oublier la diversitÃ© de la production du Beaujolais - vins de garde et appellations de grande qualitÃ© - et la beautÃ© de ses paysages viticoles vallonnÃ©s, de ses chÃ¢teaux et villages mÃ©diÃ©vaux aux pierres dorÃ©es. Autant de bonnes raisons de partir en sÃ©jour Å“nologique dans le Beaujolais, et sillonner le vignoble sur 55 kilomÃ¨tres, entre MÃ¢con et Lyon, Ã  la dÃ©couverte de sa gastronomie, de ses vins et de ses vignerons.
             </p>
             <div class="flex justify-center">
                 <img class="mt-5 rounded-lg" src="https://www.vinotrip.com/img/cms/Beaujolais.jpg" alt="carte vignoble beaujolais">
             </div>
 
             <div>
-                <h2 class="font-bold mt-5">Dégustez les vins du Beaujolais</h2>
+                <h2 class="font-bold mt-5">DÃ©gustez les vins du Beaujolais</h2>
                 <p class="mt-3">
-                    Rattachés juridiquement à la Bourgogne viticole, les vins du Beaujolais ont en commun avec leurs voisins bourguignons une complexité, une souplesse et un fruité délicat. Le gamay, cépage emblématique du Beaujolais, couvre 99% du vignoble situé à cheval sur les départements du Rhône et de la Saône-et-Loire.
+                    RattachÃ©s juridiquement Ã  la Bourgogne viticole, les vins du Beaujolais ont en commun avec leurs voisins bourguignons une complexitÃ©, une souplesse et un fruitÃ© dÃ©licat. Le gamay, cÃ©page emblÃ©matique du Beaujolais, couvre 99% du vignoble situÃ© Ã  cheval sur les dÃ©partements du RhÃ´ne et de la SaÃ´ne-et-Loire.
                 </p>
                 <p class="mt-3">
-                    Seul le chardonnay planté à la frontière nord avec le Mâconnais vient concurrencer très marginalement la suprématie du cépage gamay. Les week-ends viticoles en Beaujolais vous permettront de vous familiariser avec ces fabuleux vins et vous emmèneront à la rencontre d’une des rares régions viticoles encore fidèle à la vendange manuelle.
+                    Seul le chardonnay plantÃ© Ã  la frontiÃ¨re nord avec le MÃ¢connais vient concurrencer trÃ¨s marginalement la suprÃ©matie du cÃ©page gamay. Les week-ends viticoles en Beaujolais vous permettront de vous familiariser avec ces fabuleux vins et vous emmÃ¨neront Ã  la rencontre dâ€™une des rares rÃ©gions viticoles encore fidÃ¨le Ã  la vendange manuelle.
                 </p>
                 <p class="mt-3">
-                    L’œnologie en Beaujolais commence souvent par l’initiation au vin nouveau pour mieux découvrir, par la suite, une production plus diversifiée et complexe.
+                    Lâ€™Å“nologie en Beaujolais commence souvent par lâ€™initiation au vin nouveau pour mieux dÃ©couvrir, par la suite, une production plus diversifiÃ©e et complexe.
                 </p>
                 <p class="mt-3">
-                    Types de vins à déguster : vins rouges majoritairement, mais également beaujolais blancs et rosés.
+                    Types de vins Ã  dÃ©guster : vins rouges majoritairement, mais Ã©galement beaujolais blancs et rosÃ©s.
                 </p>
             </div>
 
             <div>
-                <h2 class="font-bold mt-5">Chiffres clés du vignoble Beaujolais:</h2>
+                <h2 class="font-bold mt-5">Chiffres clÃ©s du vignoble Beaujolais:</h2>
                 <h2 class="font-bold mt-3">Superficie</h2>
                 <p class="mt-2">plus de 18 000 hectares</p>
                 <h2 class="font-bold mt-3">Production</h2>
-                <p class="mt-2">1 million d’hectolitres produits chaque année</p>
-                <h2 class="font-bold mt-3">Les aires d’appellation à découvrir</h2>
+                <p class="mt-2">1 million dâ€™hectolitres produits chaque annÃ©e</p>
+                <h2 class="font-bold mt-3">Les aires dâ€™appellation Ã  dÃ©couvrir</h2>
                 <ul class="mt-2 list list-disc list-inside">
-                    <li>Appellation régionale beaujolais</li>
+                    <li>Appellation rÃ©gionale beaujolais</li>
                     <li>Appellation beaujolais-villages</li>
-                    <li>Dix crus : Brouilly, Côte de Brouilly, Chénas, Chiroubles, Fleurie, Juliénas, Morgon, Moulin à vent, Régnié, Saint-Amour</li>
+                    <li>Dix crus : Brouilly, CÃ´te de Brouilly, ChÃ©nas, Chiroubles, Fleurie, JuliÃ©nas, Morgon, Moulin Ã  vent, RÃ©gniÃ©, Saint-Amour</li>
                 </ul>
             </div>
         </div>
@@ -59,7 +59,7 @@
         <div id="villages" class="text-justify">
             <h2 class=" flex text-3xl mt-10 mb-5" id="title">Villes et villages viticoles du Beaujolais</h2>
             <p>
-                Le vignoble du Beaujolais couvre une surface de plus de 22 000 hectares. Il s’étend sur les derniers contreforts du Massif Central, à l’Ouest de la Saône, entre Mâcon et Lyon. Il bénéficie d’un climat unique : continental en hiver, océanique en automne et au printemps, et méditerranéen en été.
+                Le vignoble du Beaujolais couvre une surface de plus de 22 000 hectares. Il sâ€™Ã©tend sur les derniers contreforts du Massif Central, Ã  lâ€™Ouest de la SaÃ´ne, entre MÃ¢con et Lyon. Il bÃ©nÃ©ficie dâ€™un climat unique : continental en hiver, ocÃ©anique en automne et au printemps, et mÃ©diterranÃ©en en Ã©tÃ©.
             </p>
             <div class="flex justify-center">
                 <img class="mt-5 rounded-lg" src="https://www.vinotrip.com/img/cms/Ch%C3%A2teau_de_Varennes_(Quinci%C3%A9-en-Beaujolais)_1.jpg" alt="villages beaujolais">
@@ -68,11 +68,11 @@
             <div>
                 <h2 class="font-bold mt-5">Parmi les villages et les villes les plus connus :</h2>
                 <ul class="mt-2 list list-disc list-inside">
-                    <li>Villefranche-sur-saône, capitale du Beaujolais.</li>
-                    <li>Le petit village de Villié-Morgon, niché au sein des coteaux du Beaujolais, qui s'est imposé comme une étape indispensable pour les amateurs de vin.</li>
-                    <li>Brouilly, avec 20 % de la superficie du vignoble Beaujolais, est le vignoble le plus étendu de la région.</li>
+                    <li>Villefranche-sur-saÃ´ne, capitale du Beaujolais.</li>
+                    <li>Le petit village de VilliÃ©-Morgon, nichÃ© au sein des coteaux du Beaujolais, qui s'est imposÃ© comme une Ã©tape indispensable pour les amateurs de vin.</li>
+                    <li>Brouilly, avec 20 % de la superficie du vignoble Beaujolais, est le vignoble le plus Ã©tendu de la rÃ©gion.</li>
                     <li>Saint-Amour, qui est le plus septentrional des crus du Beaujolais.</li>
-                    <li>Chénas, qui est le plus petit des crus du Beaujolais s'étendant sur environ 260 hectares</li>
+                    <li>ChÃ©nas, qui est le plus petit des crus du Beaujolais s'Ã©tendant sur environ 260 hectares</li>
                 </ul>
             </div>
         </div>
@@ -80,20 +80,20 @@
         <div id="vins" class="text-justify">
             <h2 class=" flex text-3xl mt-10 mb-5" id="title">Partez sur les routes des vins du Beaujolais</h2>
             <p>
-                Partez à la découverte des crus du Beaujolais en parcourant le vignoble à la rencontre de ses vignerons et de leurs passions et savoirs-faire pour la vigne. Nos équipes vous conseille de découvrir 2 itinéraires de <RouterLink to="/route-beaujolais">routes des vins du Beaujolais</RouterLink>.
+                Partez Ã  la dÃ©couverte des crus du Beaujolais en parcourant le vignoble Ã  la rencontre de ses vignerons et de leurs passions et savoirs-faire pour la vigne. Nos Ã©quipes vous conseille de dÃ©couvrir 2 itinÃ©raires de <RouterLink to="/route-beaujolais">routes des vins du Beaujolais</RouterLink>.
             </p>
 
             <div>
                 <h2 class="font-bold mt-5">La route des crus villages du Beaujolais</h2>
                 <p class="mt-2">
-                    Sur 92 kilomètres, elle vous conduira de Villefranche-sur-Saône à Montmelas-Sorlin, Saint-Julien (ville de Claude Bernard et son musée), Vaux-en- Beaujolais, Arguy et son château et Beaujeu.
+                    Sur 92 kilomÃ¨tres, elle vous conduira de Villefranche-sur-SaÃ´ne Ã  Montmelas-Sorlin, Saint-Julien (ville de Claude Bernard et son musÃ©e), Vaux-en- Beaujolais, Arguy et son chÃ¢teau et Beaujeu.
                 </p>
             </div>
 
             <div>
-                <h2 class="font-bold mt-5">Circuit au départ de Villefranche-sur-Saône</h2>
+                <h2 class="font-bold mt-5">Circuit au dÃ©part de Villefranche-sur-SaÃ´ne</h2>
                 <p class="mt-2">
-                    Sur 52 kilomètres, vous passerez par Marcy, Chaunay, puis par une série de petits villages : Chatillon, Chessy, Bagnols, tous dotés d'une belle église.
+                    Sur 52 kilomÃ¨tres, vous passerez par Marcy, Chaunay, puis par une sÃ©rie de petits villages : Chatillon, Chessy, Bagnols, tous dotÃ©s d'une belle Ã©glise.
                 </p>
             </div>
 
@@ -105,75 +105,76 @@
         <div id="weekend" class="text-justify">
             <h2 class=" flex text-3xl mt-10 mb-5" id="title">3 raisons de venir en week-end en Beaujolais</h2>
             <p>
-                Envie de passer un week-end gastronomique, festif et gourmand ? Situé à quelques kilomètres seulement au nord de Lyon et à moins de 200 km à l’ouest de Genève en Suisse, le vignoble du Beaujolais jouit depuis toujours d’une situation favorable et stratégique. Que vous souhaitiez partir en famille, entre amis ou en amoureux, découvrez toutes nos idées de week-end pour profiter du Beaujolais.
+                Envie de passer un week-end gastronomique, festif et gourmand ? SituÃ© Ã  quelques kilomÃ¨tres seulement au nord de Lyon et Ã  moins de 200 km Ã  lâ€™ouest de GenÃ¨ve en Suisse, le vignoble du Beaujolais jouit depuis toujours dâ€™une situation favorable et stratÃ©gique. Que vous souhaitiez partir en famille, entre amis ou en amoureux, dÃ©couvrez toutes nos idÃ©es de week-end pour profiter du Beaujolais.
             </p>
 
             <div>
-                <h2 class="font-bold mt-5">Week-end romantique et détente</h2>
+                <h2 class="font-bold mt-5">Week-end romantique et dÃ©tente</h2>
                 <p class="mt-2">
-                    Le temps d’une romance viticole, venez vous détendre dans un spa au coeur des vignes, suivi d’une dégustation de vin du Beaujolais chez l’un de nos domaines partenaire.
+                    Le temps dâ€™une romance viticole, venez vous dÃ©tendre dans un spa au coeur des vignes, suivi dâ€™une dÃ©gustation de vin du Beaujolais chez lâ€™un de nos domaines partenaire.
                 </p>
             </div>
 
             <div>
-                <h2 class="font-bold mt-5">Découverte du Beaujolais à Saint-Amour</h2>
+                <h2 class="font-bold mt-5">DÃ©couverte du Beaujolais Ã  Saint-Amour</h2>
                 <p class="mt-2">
-                    Hébergés dans une maison d’hôte de charme à Saint Amour vous pourrez jouir de l’emplacement favorable de nos partenaires, situés au coeur du Beaujolais pour un week-end placé sous le signe de la dégustation de vins de différentes appellations.
+                    HÃ©bergÃ©s dans une maison dâ€™hÃ´te de charme Ã  Saint Amour vous pourrez jouir de lâ€™emplacement favorable de nos partenaires, situÃ©s au coeur du Beaujolais pour un week-end placÃ© sous le signe de la dÃ©gustation de vins de diffÃ©rentes appellations.
                 </p>
             </div>
 
             <div>
-                <h2 class="font-bold mt-5">Domaines à visiter et crus à déguster en Beaujolais</h2>
+                <h2 class="font-bold mt-5">Domaines Ã  visiter et crus Ã  dÃ©guster en Beaujolais</h2>
                 <p class="mt-2">
-                    Le Beaujolais est l’un des rares vignobles à rester fidèle à la vendange manuelle, venez découvrir cette <a href="https://www.vinotrip.com/fr/blog/visites-domaines-crus-deguster-beaujolais/">vinification traditionnelle des grands crus Beaujolais</a> le temps d’un week-end.
+                    Le Beaujolais est lâ€™un des rares vignobles Ã  rester fidÃ¨le Ã  la vendange manuelle, venez dÃ©couvrir cette <a href="https://www.vinotrip.com/fr/blog/visites-domaines-crus-deguster-beaujolais/">vinification traditionnelle des grands crus Beaujolais</a> le temps dâ€™un week-end.
                 </p>
             </div>
         </div>
+        
 
         <div id="tourisme" class="text-justify">
-            <h2 class=" flex text-3xl mt-10 mb-5" id="title">Tourisme et activités dans le vignoble du Beaujolais</h2>
+            <h2 class=" flex text-3xl mt-10 mb-5" id="title">Tourisme et activitÃ©s dans le vignoble du Beaujolais</h2>
 
             <div>
                 <h2 class="font-bold">Culture et nature</h2>
                 <p class="mt-3">
-                    Cette région viticole combine à merveille initiation œnologique, découverte culturelle et détente.
+                    Cette rÃ©gion viticole combine Ã  merveille initiation Å“nologique, dÃ©couverte culturelle et dÃ©tente.
                 </p>
 
                 <p class="mt-3">
-                    <span class="font-bold">Côté culture</span>, la visite des châteaux du Beaujolais, ses villages médiévaux et villes historiques (Villefranche, Beaujeu) raviront plus d’un voyageur à la recherche de paysages bucoliques.
+                    <span class="font-bold">CÃ´tÃ© culture</span>, la visite des chÃ¢teaux du Beaujolais, ses villages mÃ©diÃ©vaux et villes historiques (Villefranche, Beaujeu) raviront plus dâ€™un voyageur Ã  la recherche de paysages bucoliques.
                 </p>
 
                 <p class="mt-3">
-                    <span class="font-bold">Côté nature</span>, ses paysages vallonnés offrent des vues imprenables sur le vignoble et le Beaujolais vert. Une facette qui séduira les adeptes des randonnées qui sont aussi gourmands : un périple entrecoupé de visites de domaines viticoles et de dégustations des crus du Beaujolais !
+                    <span class="font-bold">CÃ´tÃ© nature</span>, ses paysages vallonnÃ©s offrent des vues imprenables sur le vignoble et le Beaujolais vert. Une facette qui sÃ©duira les adeptes des randonnÃ©es qui sont aussi gourmands : un pÃ©riple entrecoupÃ© de visites de domaines viticoles et de dÃ©gustations des crus du Beaujolais !
                 </p>
             </div>
 
             <div>
                 <h2 class="font-bold mt-5">Visiter les plus beaux domaines viticoles</h2>
                 <p class="mt-2">
-                    Partez à la découverte des plus beaux domaines viticoles en sillonnant les routes du Beaujolais. Situé à Beaujeu, capitale historique du Beaujolais, nous vous recommandons de faire un tour à la Maison Pardon et Fils.
+                    Partez Ã  la dÃ©couverte des plus beaux domaines viticoles en sillonnant les routes du Beaujolais. SituÃ© Ã  Beaujeu, capitale historique du Beaujolais, nous vous recommandons de faire un tour Ã  la Maison Pardon et Fils.
                 </p>
             </div>
 
             <div>
                 <h2 class="font-bold mt-5">Gouter la gastronomie du Beaujolais</h2>
                 <p class="mt-2">
-                    Associé au vignoble lyonnais, le Beaujolais partage avec celui-ci le goût du bien-manger, des itinéraires gourmands qui compléteront à merveille votre voyage œnologique sur les terres du gamay. Les accords mets et vins restent une expérience unique, découvrez <a href="https://www.vinotrip.com/fr/blog/les-specialites-gastronomiques-du-beaujolais/">les spécialités culinaires du Beaujolais</a>.
+                    AssociÃ© au vignoble lyonnais, le Beaujolais partage avec celui-ci le goÃ»t du bien-manger, des itinÃ©raires gourmands qui complÃ©teront Ã  merveille votre voyage Å“nologique sur les terres du gamay. Les accords mets et vins restent une expÃ©rience unique, dÃ©couvrez <a href="https://www.vinotrip.com/fr/blog/les-specialites-gastronomiques-du-beaujolais/">les spÃ©cialitÃ©s culinaires du Beaujolais</a>.
                 </p>
             </div>
 
             <div>
-                <h2 class="font-bold mt-5">Activités à faire en famille ou entre amis</h2>
+                <h2 class="font-bold mt-5">ActivitÃ©s Ã  faire en famille ou entre amis</h2>
                 <ul class=" mt-2 list list-disc list-inside">
-                    <li>Activités nautiques, randonnées et Forêt de l’Aventure au Lac des Sapins à Cublize, base nautique du Colombier à Anse : aviron, voile, kayak, …</li>
-                    <li>=Randonnées pédestres, équestres ou VTT de vignes en villages et de villages en forêts : circuit des Industries d’Antan, circuit des crêtes, balades dans les Pierres Dorées, voie verte du Beaujolais, …</li>
-                    <li>Parcs acrobatiques forestiers à Blacé et Avenas.</li>
-                    <li>Golf Club du Beaujolais à Lucenay</li>
+                    <li>ActivitÃ©s nautiques, randonnÃ©es et ForÃªt de lâ€™Aventure au Lac des Sapins Ã  Cublize, base nautique du Colombier Ã  Anse : aviron, voile, kayak, â€¦</li>
+                    <li>=RandonnÃ©es pÃ©destres, Ã©questres ou VTT de vignes en villages et de villages en forÃªts : circuit des Industries dâ€™Antan, circuit des crÃªtes, balades dans les Pierres DorÃ©es, voie verte du Beaujolais, â€¦</li>
+                    <li>Parcs acrobatiques forestiers Ã  BlacÃ© et Avenas.</li>
+                    <li>Golf Club du Beaujolais Ã  Lucenay</li>
                 </ul>
             </div>
 
             <div>
-                <h2 class=" flex text-3xl mt-10 mb-5 justify-center" id="title">Vous pourriez être intéressés par</h2>
+                <h2 class=" flex text-3xl mt-10 mb-5 justify-center" id="title">Vous pourriez Ãªtre intÃ©ressÃ©s par</h2>
                 <div class="flex justify-center">
                     <div class=" grid grid-cols-2 mt-2">
                         <RouterLink to="/vignoble/val-de-loire" title="Val de Loire">Vignoble du Val de Loire</RouterLink>
@@ -184,7 +185,7 @@
                         <RouterLink to="/vignoble/languedoc-roussillon" title="Languedoc Roussillon">Vignoble du Languedoc Roussillon</RouterLink>
                         <RouterLink to="/vignoble/provence" title="Provence">Vignoble de Provence</RouterLink>
                         <RouterLink to="/vignoble/sud-ouest" title="Sud Ouest">Vignoble du Sud Ouest</RouterLink>
-                        <RouterLink to="/vignoble/vallee-du-rhone" title="Rhône">Vignoble de la Vallée de Rhône</RouterLink>
+                        <RouterLink to="/vignoble/vallee-du-rhone" title="RhÃ´ne">Vignoble de la VallÃ©e de RhÃ´ne</RouterLink>
                     </div>
                 </div>
             </div>

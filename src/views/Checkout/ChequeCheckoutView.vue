@@ -17,7 +17,7 @@ const refchq: any = route.params.ref;
 const items: any = [{
     name: "Cheque cadeau de " + config.cheques[refchq] + "€",
     description: "Chèque cadeau valable 2 ans sur tous les séjours du site",
-    unit_amount: config.cheques[refchq] * 100,
+    price: config.cheques[refchq] * 100,
     currency: "EUR",
     quantity: 1,
     image: "http://www.iutannecy-deptinfo.fr:5006/src/assets/img/favicon.ico",
@@ -31,6 +31,7 @@ const note = ref("");
 const noteError = ref(false);
 const coupon = ref("");
 const closeAddAdress: any = ref(true);
+const adresses: any = ref([]);
 
 watch(note, (val) => {
   if (val.length < 50 && val.length > 0) {
@@ -43,6 +44,19 @@ watch(note, (val) => {
 });
 
 onMounted(() => {
+  axios
+    .get(
+      "/api/User/GetUserById/" + authStore.user?.idClient + "?withAdresse=true",
+      {
+        headers: {
+          Authorization: "Bearer " + authStore.token,
+        },
+      }
+    )
+    .then((response) => {
+      adresses.value = response.data.adresseClientNavigation;
+
+    });
 });
 
 const confirmPay = () => {
@@ -70,9 +84,8 @@ const confirmPay = () => {
 };
 
 async function pay() {
-    
   try {
-    const response = await axios.post("/payment/checkout", {
+    const response = await axios.post("/api/Payment/checkout", {
       reservations: [],
       articles: items,
       saveCredentials: savePaiment.value,
@@ -81,7 +94,7 @@ async function pay() {
       emailClient: authStore.user.emailClient,
       noteCommande: note.value,
       idClient: authStore.user.idClient,
-      name: authStore.user.nomClient + " " + authStore.user.prenomClient,
+      NomClient: authStore.user.nomClient + " " + authStore.user.prenomClient,
     });
     const checkoutURL = response.data.checkoutURL;
     // Redirect the user to the Stripe Checkout page
@@ -96,12 +109,12 @@ async function pay() {
 
 <template>
   <div v-if="authStore.user" class="">
-    <AddAdressForm v-if="!closeAddAdress" v-on:toClose="(i) => closeAddAdress = i" :idclient="authStore.user.idclient" />
+    <AddAdressForm v-if="!closeAddAdress" v-on:toClose="(i) => closeAddAdress = i" :idclient="authStore.user.idClient" />
     <div class="flex mt-6">
       <div class="w-1/2 px-3">
         <h1 class="text-3xl mb-6">Adresse de facturation</h1>
         <div class="flex flex-wrap">
-          <div class="w-full" v-if="!authStore.user.adresses || authStore.user.adresses.length == 0">
+          <div class="w-full" v-if="!adresses || adresses.length == 0">
             <button
               @click="closeAddAdress = false"
               :disabled="loading"
@@ -145,38 +158,38 @@ async function pay() {
           <div
             v-else
             class="w-1/2 h-full justify-between flex-1 px-3 flex flex-col gap-6"
-            v-for="adresse in authStore.user.adresses"
+            v-for="adresse in adresses"
             :key="adresse.idadresse"
           >
             <AddresseVue
               :class="
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? 'bg-rose'
                   : 'bg-transparent'
               "
               :canEdit="false"
-              :id="adresse.idadresse"
-              :libelleAdress="adresse.libelleadresse"
-              :rueAdresse="adresse.rueadresse"
-              :villeAdresse="adresse.villeadresse"
-              :codePostalAdresse="adresse.cpadresse"
+              :id="adresse.idAdresse"
+              :libelleAdress="adresse.libelleAdresse"
+              :rueAdresse="adresse.rueAdresse"
+              :villeAdresse="adresse.villeAdresse"
+              :codePostalAdresse="adresse.cpAdresse"
               :paysAdresse="adresse.pays"
             />
             <button
               @click="
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? (selectedAddress = null)
-                  : (selectedAddress = adresse.idadresse)
+                  : (selectedAddress = adresse.idAdresse)
               "
               :class="
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? 'bg-rose'
                   : 'bg-transparent'
               "
               class="flex w-full text-xl justify-center cursor-pointer select-none rounded-md ease-linear duration-300 items-center gap-3 p-3 border-rose border-2 font-semibold"
             >
               <svg
-                v-if="selectedAddress != adresse.idadresse"
+                v-if="selectedAddress != adresse.idAdresse"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -206,7 +219,7 @@ async function pay() {
                 />
               </svg>
               {{
-                selectedAddress == adresse.idadresse
+                selectedAddress == adresse.idAdresse
                   ? "Adresse sélectionnée"
                   : "Choisir cette adresse"
               }}

@@ -8,10 +8,16 @@
           <p class="mt-5 text-center">Souvent imité, jamais égalé, le vignoble français offre une diversité de climats, associés à une multitude de terroirs répartis sur 80 départements différents. Découvrez ce que les régions viticoles ont à vous offrir le temps d’un week-end ou d’un séjour oenologique sur la <RouterLink to="/route-des-vins" title="Route des vins">route des vins</RouterLink>.</p>
       </div>
       <div class="grid lg:grid-cols-3 md:grid-cols-2 mt-11">
-          <div v-for="destination in destinations">
+          <div v-for="destination in destinations" >
               <div v-if="destination.descriptionDestination">
                   <SingleCardVignoble :title="destination.libelleDestination"
                                       :description="destination.descriptionDestination"
+                                      image="vignoble.photosejour"
+                                      :id="destination.idDestination" />
+              </div>
+              <div v-else>
+                  <SingleCardVignoble :title="destination.libelleDestination"
+                                      :description="'Venez découvrir pleins d\'informations sur le fabuleux vignoble de ' + destination.libelleDestination + '.'"
                                       image="vignoble.photosejour"
                                       :id="destination.idDestination" />
               </div>
