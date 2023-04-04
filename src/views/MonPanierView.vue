@@ -5,7 +5,7 @@
       <ion-icon name="alert-circle-outline" class="animate-bounce text-xl mr-5"></ion-icon>
       {{ errorMessages[0] }} <RouterLink to="/connexion" v-if="errorMessages[0].includes('connecté')" class="text-red-800 ml-3 font-bold">Se connecter</RouterLink>
     </div>
-    <div class="flex gap-3">
+    <div class="flex flex-col 2xl:flex-row gap-3">
       <div class="2xl:w-3/4 w-full">
         <div class="flex flex-col gap-5" v-auto-animate>
           <div v-for="item in mesSejours" v-auto-animate :key="item.sejour.idsejour" class="">
@@ -25,7 +25,7 @@
           </div> 
         </div>
       </div>
-      <div class="2xl:w-1/4 flex z-40 2xl:sticky 2xl:top-5 px-2 left-0 fixed bottom-2 w-11/12 2xl:border-2 2xl:border-rose rounded-2xl 2xl:flex-col gap-5 items-center h-fit">
+      <div class="2xl:w-1/4 flex z-40 2xl:sticky 2xl:top-5 px-2 left-0 sticky bottom-2 w-full 2xl:border-2 2xl:border-rose rounded-2xl 2xl:flex-col gap-5 items-center h-fit">
         <div class="2xl:p-12 2xl:bg-transparent bg-rose rounded-md 2xl:block lg:flex gap-3 justify-between w-full items-center p-2 text-center">
           <h1 class="2xl:text-2xl text-base text-white 2xl:mb-6 whitespace-nowrap font-semibold">Total : {{ numberWithSpaces(total.toFixed(2)) }} €</h1>
           <div class="lg:flex gap-3">
